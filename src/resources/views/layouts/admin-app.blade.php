@@ -16,9 +16,9 @@
         <header class="header">
             <div class="header__inner">
                 <a href="/" class="header__logo">
-                    <img src="{{ asset('images/logo.png" alt="logo">
+                    <img class="header__logo--img" src="{{ asset('images/logo.png" alt="logo">
                 </a>
-                @if(Auth::check() && Auth::user()->admin_status)
+                @if(Auth::check() && Auth::user()->admin_status === 1)
                 <form action="/admin/logout" method="post">
                     @csrf
                     <div class="inner__group">
