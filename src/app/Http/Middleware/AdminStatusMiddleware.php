@@ -16,6 +16,10 @@ class AdminStatusMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        if (!auth()->user()->admin_status) {
+            return redirect('/attendance');
+        }
+
         return $next($request);
     }
 }

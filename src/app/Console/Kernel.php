@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Console\Commands\ExportRoutesCommand;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -29,4 +31,9 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    protected $commands = [
+        \App\Console\Commands\ExportRoutesCommand::class,
+    ];
+
 }

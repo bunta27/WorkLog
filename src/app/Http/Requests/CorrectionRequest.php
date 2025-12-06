@@ -27,8 +27,8 @@ class CorrectionRequest extends FormRequest
             'new_clock_in' => 'required|date_format:H:i|before:new_clock_out',
             'new_clock_out' => 'required|date_format:H:i|after:new_clock_in',
 
-            'new_break_in' => 'nullable|array|date_format:H:i',
-            'new_break_out' => 'nullable|array|date_format:H:i',
+            'new_break_in' => 'nullable|array',
+            'new_break_out' => 'nullable|array',
 
             'new_break_in.*' => 'nullable|date_format:H:i|before:new_clock_out|after:new_clock_in',
             'new_break_out.*' => 'nullable|date_format:H:i|before:new_clock_out',
