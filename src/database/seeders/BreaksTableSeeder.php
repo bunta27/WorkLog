@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\AttendanceRecord;
 use App\Models\AttendanceBreak;
+use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +24,7 @@ class BreaksTableSeeder extends Seeder
             $clockIn = Carbon::parse($record->clock_in);
             $clockOut = Carbon::parse($record->clock_out ?? $clockIn->copy()->addHours(8));
 
-            if ($clockIn->get($clockOut)) {
+            if ($clockIn->gt($clockOut)) {
                 [$clockIn, $clockOut] = [$clockOut, $clockIn];
             }
 
