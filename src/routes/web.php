@@ -21,7 +21,9 @@ use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/', function () {
+    return redirect('/login');
+});
 // =========================
 // 一般ユーザー & 管理者 共通（ログイン必須）
 // =========================
