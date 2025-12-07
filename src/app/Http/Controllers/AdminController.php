@@ -152,9 +152,9 @@ class AdminController extends Controller
         return view('admin/admin-application-list', compact('user', 'applications'));
     }
 
-    public function approvalShow($id)
+    public function approvalShow($attendance_correct_request_id)
     {
-        $application = Application::findOrFail($id);
+        $application = Application::findOrFail($attendance_correct_request_id);
         $user = User::findOrFail($application->user_id);
 
         $application->new_date = Carbon::parse($application->new_date);
@@ -166,9 +166,9 @@ class AdminController extends Controller
         return view('admin/admin-application-detail', compact('application', 'user'));
     }
 
-    public function approval(Request $request, $id)
+    public function approval(Request $request, $attendance_correct_request_id)
     {
-        $application = Application::findOrFail($id);
+        $application = Application::findOrFail($attendance_correct_request_id);
         $user = User::findOrFail($application->user_id);
         $attendanceRecord = AttendanceRecord::findOrFail($application->attendance_record_id);
 

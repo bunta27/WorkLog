@@ -77,8 +77,8 @@ Route::middleware(['auth', AdminStatusMiddleware::class])->group(function () {
     Route::get('/admin/attendance/staff/{id}', [AdminController::class, 'staffDetailList']);
 
     // 修正申請承認画面（管理者）
-    Route::get('/stamp_correction_request/approve/{id}', [AdminController::class, 'approvalShow']);
-    Route::post('/stamp_correction_request/approve/{id}', [AdminController::class, 'approval']);
+    Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminController::class, 'approvalShow']);
+    Route::post('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminController::class, 'approval']);
 
     // 勤怠CSV出力（管理者）
     Route::post('/export', [AdminController::class, 'export']);
