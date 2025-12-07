@@ -1,0 +1,49 @@
+* {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.header {
+    background: black;
+    width: 100%;
+}
+
+.header__inner {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 30px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo img{
+    width: 370px;
+    height: 36px;
+}
+
+.inner__group--item {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.inner__group--item:not(:last-child) {
+    margin-right: 10px;
+}
+
+.logout-button {
+    background-color: black;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 0;
+}
+
+main {
+    height: 100vh;
+}

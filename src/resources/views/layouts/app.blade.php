@@ -16,7 +16,7 @@
         <header class="header">
             <div class="header__inner">
                 <a href="/" class="header__logo">
-                    <img src="{{ asset('images/logo.png" alt="logo">
+                    <img src="{{ asset('images/logo.png') }}"  alt="logo">
                 </a>
                 @if(Auth::check())
                 <form action="/logout" method="post">

@@ -22,7 +22,7 @@ use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 |
 */
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/register');
 });
 // =========================
 // 一般ユーザー & 管理者 共通（ログイン必須）

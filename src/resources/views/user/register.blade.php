@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-<div>
-    <div>
-        <h2>会員登録</h2>
+<div class="register__content">
+    <div class="register__header">
+        <h2 class="register__header--item">会員登録</h2>
     </div>
     @if(session('message'))
     <div>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="form__group">
-            <span class="form__label">名前</span>
+            <span class="form__label">パスワード確認</span>
             <input class="form__input" type="password" name="password_confirmation">
             <div class="form__error">
                 @error('password_confirmation')
