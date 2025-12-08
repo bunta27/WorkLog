@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="staff-attendance-list__content">
+<div class="content">
     <div class="content__header">
         <h2 class="content__title">{{ $user->name }}さんの勤怠</h2>
     </div>

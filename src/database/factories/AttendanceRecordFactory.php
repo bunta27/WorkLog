@@ -13,10 +13,9 @@ class AttendanceRecordFactory extends Factory
 
     public function definition()
     {
-        $userIds = User::pluck('id');
-        $userId = $userIds->random();
+        $userId = User::inRandomOrder()->value('id');
 
-        $date = $this->faker->dateTimeBetween('2023-01-01', '2023-12-31')->format('Y-m-d');
+        $date = $this->faker->dateTimeBetween('-10 days', '+10 days')->format('Y-m-d');
         $clockIn = Carbon::createFromFormat('Y-m-d H:i:s', $date . ' ' . $this->faker->time('H:i:s'));
         $clockOut = Carbon::createFromFormat('Y-m-d H:i:s', $date . ' ' . $this->faker->time('H:i:s'))->addHours(rand(6, 10));
 

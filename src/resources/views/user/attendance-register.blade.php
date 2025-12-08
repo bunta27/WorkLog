@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="attendance__content">
+<div class="content">
     <div class="content__status">
         <p class="content__title">{{ $user->attendance_status }}</p>
     </div>

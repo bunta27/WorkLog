@@ -11,23 +11,23 @@ use App\Http\Controllers\AmendmentApplicationController;
 use App\Http\Middleware\AdminStatusMiddleware;
 
 use Laravel\Fortify\Http\Controllers\VerifyEmailController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
+
+// ▼ 初期表示は会員登録画面へ
 Route::get('/', function () {
     return redirect('/register');
 });
+
+
 // =========================
-// 一般ユーザー & 管理者 共通（ログイン必須）
+// 一般ユーザー（ログイン＋メール認証必須）
 // =========================
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     // 勤怠登録画面（一般ユーザー）
     Route::get('/attendance', [UserController::class, 'index']);
@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
 
 
 // =========================
-// 管理者専用（AdminStatusMiddleware でガード）
+// 管理者専用（ログイン＋AdminStatusMiddleware）
 // =========================
 Route::middleware(['auth', AdminStatusMiddleware::class])->group(function () {
 
@@ -106,12 +106,28 @@ Route::post('/register', [AuthController::class, 'store']);
 
 
 // =========================
-// メール認証（Fortify）
+// メール認証（登録直後＆初ログイン時に利用）
 // =========================
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+Route::middleware('auth')->group(function () {
 
-Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
-    ->middleware(['auth', 'signed'])
-    ->name('verification.verify');
+    // 認証待ち画面
+    Route::get('/email/verify', function () {
+        return view('verify-email');
+    })->name('verification.notice');
+
+    // メール内リンクを踏んだとき
+    Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
+        ->middleware(['signed'])
+        ->name('verification.verify');
+
+    // 認証メール送信／再送信
+    Route::post('/email/verification-notification', function (Request $request) {
+        if ($request->user()->hasVerifiedEmail()) {
+            return redirect()->intended('/attendance');
+        }
+
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('status', 'verification-link-sent');
+    })->middleware('throttle:6,1')->name('verification.send');
+});

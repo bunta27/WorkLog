@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="register__content">
+<div class="content">
     <div class="content__header">
         <h2 class="content__title">会員登録</h2>
     </div>

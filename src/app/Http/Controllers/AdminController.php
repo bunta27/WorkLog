@@ -15,7 +15,9 @@ class AdminController extends Controller
     {
         $users = User::all();
         $date = Carbon::parse($request->query('date', Carbon::now()));
-        $attendanceRecords = AttendanceRecord::whereDate('date', $date)->whereIn('user_id', $user->pluck('id'))->get();
+        $attendanceRecords = AttendanceRecord::whereDate('date', $date)->whereIn('user_id', $users->pluck('id'))->get();
+        $minDate = AttendanceRecord::min('date');
+        $maxDate = AttendanceRecord::max('date');
 
         return view('admin/admin-attendance-list', [
             'users' => $users,
@@ -23,6 +25,8 @@ class AdminController extends Controller
             'date' => $date,
             'previousDay' => $date->copy()->subDay()->format('Y-m-d'),
             'nextDay' => $date->copy()->addDay()->format('Y-m-d'),
+            'minDate' => $minDate,
+            'maxDate' => $maxDate,
         ]);
     }
 

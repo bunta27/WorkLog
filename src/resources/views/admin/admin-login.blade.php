@@ -5,15 +5,15 @@
 @endsection
 
 @section('content')
-<div class="login__content">
+<div class="content">
     <div class="content__header">
         <h2 class="content__title">管理者ログイン</h2>
     </div>
     <form class="form" action="/admin/login" method="post">
         @csrf
         <div class="form__group">
-            <label class="form__group--label" for="email">メールアドレス</label>
-            <input class="form__group--input" type="email" name="email" value="{{ old('email') }}">
+            <label class="form__label" for="email">メールアドレス</label>
+            <input class="form__input" type="email" name="email" value="{{ old('email') }}">
             <div class="form__error">
                 @error('email')
                 {{ $message }}
@@ -21,8 +21,8 @@
             </div>
         </div>
         <div class="form__group">
-            <label class="form__group--label" for="password">パスワード</label>
-            <input class="form__group--input" type="password" name="password">
+            <label class="form__label" for="password">パスワード</label>
+            <input class="form__input" type="password" name="password">
             <div class="form__error">
                 @error('password')
                 {{ $message }}

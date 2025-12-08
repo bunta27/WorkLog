@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = Auth::user();
+        $user = Auth::user();
 
         if ($user->attendance_status === '退勤済') {
             $attendance = AttendanceRecord::where('user_id', $user->id)
@@ -122,7 +122,7 @@ class UserController extends Controller
         $users = Auth::user();
         $date = Carbon::parse($request->query('date', now()));
 
-        $startOfMonth = $date->copy->startOfMonth();
+        $startOfMonth = $date->copy()->startOfMonth();
         $endOfMonth = $date->copy()->endOfMonth();
 
         $attendanceRecords = AttendanceRecord::where('user_id', $users->id)

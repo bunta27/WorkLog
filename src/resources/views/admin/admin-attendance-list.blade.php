@@ -5,14 +5,14 @@
 @endsection
 
 @section('content')
-<div class="attendance__content">
+<div class="content">
     <div class="content__header">
         <h2 class="content__title">{{ $date->format('Y年m月d日') }}の勤怠</h2>
     </div>
     <div class="content__menu">
         <a class="previous-day" href="?date={{ $previousDay }}">前日</a>
         <p class="current-day">{{ $date->format('Y/m/d') }}</p>
-        @if ($date->lt(\Carbon\Carbon::create(2023, 12, 31)))
+        @if ($date->lt(\Carbon\Carbon::parse($maxDate)))
             <a class="next-day" href="?date={{ $nextDay }}">翌日</a>
         @else
             <div class="next-day-placeholder"></div>
@@ -49,16 +49,16 @@
                 <p class="table__description--item">{{ $user->name }}</p>
             </td>
             <td class="table__description">
-                <p class="table__description--item">{{ $attendance->crock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '' }}</p>
+                <p class="table__description--item">{{ $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '' }}</p>
             </td>
             <td class="table__description">
-                <p class="table__description--item">{{ $attendance->crock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}</p>
+                <p class="table__description--item">{{ $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}</p>
             </td>
             <td class="table__description">
-                <p class="table__description--item">{{ $attendance->total_break_time ? \Carbon\Carbon::parse($attendance->total_break_time)->format('H:i') : '' }}</p>
+                <p class="table__description--item">{{ $attendance->total_break_time ?? '' }}</p>
             </td>
             <td class="table__description">
-                <p class="table__description--item">{{ $attendance->total_time ? \Carbon\Carbon::parse($attendance->total_time)->format('H:i') : '' }}</p>
+                <p class="table__description--item">{{ $attendance->total_time ?? '' }}</p>
             </td>
             <td class="table__description">
                 <a class="table__item--detail--link" href="{{ url('/attendance/' . $attendance['id']) }}">詳細</a>

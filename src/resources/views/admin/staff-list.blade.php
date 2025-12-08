@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="staff-list__content">
+<div class="content">
     <div class="content__header">
         <h2 class="content__title">スタッフ一覧</h2>
     </div>

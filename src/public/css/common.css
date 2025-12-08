@@ -47,3 +47,66 @@
 main {
     height: 100vh;
 }
+
+.content {
+    margin: 0 auto;
+    max-width: 1540px;
+    padding: 50px 30px;
+}
+
+.content__header {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.content__title {
+    font-size: 36px;
+}
+
+.form {
+    margin: 0 auto;
+    max-width: 680px;
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__label {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 45px;
+}
+
+.form__input {
+    border: 1px solid black;
+    border-radius: 4px;
+    height: 45px;
+    padding: 10px;
+}
+
+.form__button {
+    max-width: 100%;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.form__button--submit {
+    background: black;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    height: 60px;
+    padding: 16px 8px;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.form__error {
+    color: #FF5555;
+    margin-top: 0;
+    font-size: 25px;
+}

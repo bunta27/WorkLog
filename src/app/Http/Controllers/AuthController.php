@@ -18,9 +18,12 @@ class AuthController extends Controller
         $this->creator = $creator;
     }
 
+    // =========================
+    // 管理者ログイン関連
+    // =========================
     public function adminLogin()
     {
-        return view('admin/admin_login');
+        return view('admin/admin-login');
     }
 
     public function adminDoLogin(AdminLoginRequest $request)
@@ -30,7 +33,7 @@ class AuthController extends Controller
 
             if ($user->admin_status) {
                 return redirect('admin/attendance/list');
-        } else {
+            } else {
                 Auth::logout();
                 return back()->withErrors([
                     'email' => 'ログイン情報が登録されていません',
@@ -49,13 +52,24 @@ class AuthController extends Controller
         return redirect('/admin/login');
     }
 
+    // =========================
+    // 一般ユーザー登録
+    // =========================
     public function store(RegisterRequest $request)
     {
         $user = $this->creator->create($request->all());
+
+        Auth::login($user);
+
         $user->sendEmailVerificationNotification();
-        return redirect('/register')->with('message', '登録が完了しました。認証メールｗｐ送信しましたのでご確認ください。');
+
+        return redirect()
+            ->route('verification.notice');
     }
 
+    // =========================
+    // 一般ユーザーログイン
+    // =========================
     public function doLogin(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
@@ -63,14 +77,12 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            if (!$user->hasVerifiedEmail()) {
-                Auth::logout();
-                $this->sendVerificationEmail($user);
-                return redirect()->back()->withErrors([
-                    'email' => 'メールアドレスの認証が必要です。認証メールを再送信しました。',
-                ]);
+            if (! $user->hasVerifiedEmail()) {
+                return redirect()
+                    ->route('verification.notice');
             }
-            return redirect()->intended('/login');
+
+            return redirect()->intended('/attendance');
         }
 
         return redirect()->back()->withErrors([
@@ -82,10 +94,5 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/login');
-    }
-
-    protected function sendVerificationEmail($user)
-    {
-        $user->sendEmailVerificationNotification();
     }
 }

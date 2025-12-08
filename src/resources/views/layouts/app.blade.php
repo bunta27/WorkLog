@@ -18,7 +18,7 @@
                 <a href="/" class="header__logo">
                     <img src="{{ asset('images/logo.png') }}"  alt="logo">
                 </a>
-                @if(Auth::check())
+                @if(Auth::check() && Auth::user()->hasVerifiedEmail())
                 <form action="/logout" method="post">
                     @csrf
                     <div class="inner__group">

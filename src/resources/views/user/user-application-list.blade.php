@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="application-list__content">
+<div class="content">
     <div class="content__header">
         <h2 class="content__title">申請一覧</h2>
     </div>

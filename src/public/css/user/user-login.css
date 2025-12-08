@@ -1,0 +1,10 @@
+.register__link {
+    text-align: center;
+}
+
+.register__link--item {
+    font-size: 20px;
+    font-weight: normal;
+    color: #0073CC;
+    text-decoration: none;
+}
