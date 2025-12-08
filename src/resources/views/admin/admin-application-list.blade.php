@@ -7,7 +7,7 @@
 @section('content')
 <div class="application-list__content">
     <div class="content__header">
-        <h2 class="content__header--item">申請一覧</h2>
+        <h2 class="content__title">申請一覧</h2>
     </div>
     <div class="application-list__tab">
         <label class="application-list__tab--label" for="tab1">

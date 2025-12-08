@@ -7,7 +7,7 @@
 @section('content')
 <div class="attendance-list__content">
     <div class="content__header">
-        <h2 class="content__header--item">勤怠一覧</h2>
+        <h2 class="content__title">勤怠一覧</h2>
     </div>
     <div class="content__menu">
         <a class="previous-month" href="?date={{ $previousMonth }}">前月</a>

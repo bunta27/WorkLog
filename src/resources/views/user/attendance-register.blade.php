@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="attendance__content">
-    <div class="attendance__status">
-        <p class="attendance__status--item">{{ $user->attendance_status }}</p>
+    <div class="content__status">
+        <p class="content__title">{{ $user->attendance_status }}</p>
     </div>
     <form class="attendance__form" action="/attendance" method="post">
         @csrf

@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="login__content">
-    <div class="login__header">
-        <h2 class="login__header--item">管理者ログイン</h2>
+    <div class="content__header">
+        <h2 class="content__title">管理者ログイン</h2>
     </div>
     <form class="form" action="/admin/login" method="post">
         @csrf

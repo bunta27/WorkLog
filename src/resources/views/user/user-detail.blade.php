@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="detail__content">
-    <div class="detail__header">
-        <h2 class="detail__header--item">勤怠詳細</h2>
+    <div class="content__header">
+        <h2 class="content__title">勤怠詳細</h2>
     </div>
     <form class="form" action="{{ url('/attendance/ . $data['id']) }}" method="post">
         @csrf

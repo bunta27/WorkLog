@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="register__content">
-    <div class="register__header">
-        <h2 class="register__header--item">会員登録</h2>
+    <div class="content__header">
+        <h2 class="content__title">会員登録</h2>
     </div>
     @if(session('message'))
     <div>

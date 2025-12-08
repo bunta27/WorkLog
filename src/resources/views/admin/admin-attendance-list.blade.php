@@ -7,7 +7,7 @@
 @section('content')
 <div class="attendance__content">
     <div class="content__header">
-        <h2 class="content__header--item">{{ $date->format('Y年m月d日') }}の勤怠</h2>
+        <h2 class="content__title">{{ $date->format('Y年m月d日') }}の勤怠</h2>
     </div>
     <div class="content__menu">
         <a class="previous-day" href="?date={{ $previousDay }}">前日</a>
