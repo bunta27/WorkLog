@@ -18,23 +18,26 @@
                 <a href="/" class="header__logo">
                     <img src="{{ asset('images/logo.png') }}" alt="logo">
                 </a>
-                @if(Auth::check() && Auth::user()->admin_status === 1)
-                <form action="/admin/logout" method="post">
-                    @csrf
-                    <div class="inner__group">
+                @if(Auth::check() && (int)Auth::user()->admin_status === 1)
+                    <nav class="inner__group">
                         <a class="inner__group--item" href="/admin/attendance/list">勤怠一覧</a>
                         <a class="inner__group--item" href="/admin/staff/list">スタッフ一覧</a>
                         <a class="inner__group--item" href="/stamp_correction_request/list">申請一覧</a>
-                        <button class="inner__group--item logout-button">
-                            ログアウト
-                        </button>
-                    </div>
-                </form>
+
+                        <form action="/admin/logout" method="post">
+                            @csrf
+                            <button class="inner__group--item logout-button">
+                                ログアウト
+                            </button>
+                        </form>
+                    </nav>
                 @endif
             </div>
         </header>
+
         <main>
             @yield('content')
         </main>
+
     </body>
 </html>

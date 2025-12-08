@@ -25,6 +25,17 @@
     height: 36px;
 }
 
+.inner__group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.inner__group form {
+    margin: 0;
+}
+
 .inner__group--item {
     color: white;
     font-size: 16px;
