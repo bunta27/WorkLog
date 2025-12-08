@@ -83,7 +83,7 @@ Route::middleware(['auth', AdminStatusMiddleware::class])->group(function () {
     Route::post('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminController::class, 'approval']);
 
     // 勤怠CSV出力（管理者）
-    Route::post('/export', [AdminController::class, 'export']);
+    Route::post('/admin/attendance/export', [AdminController::class, 'export'])->name('admin.attendance.export');
 
     // 管理者ログアウト
     Route::post('/admin/logout', [AuthController::class, 'adminLogout']);

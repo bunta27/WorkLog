@@ -45,7 +45,7 @@
                 <p class="table__description--item">{{ $attendanceRecord['date'] }}</p>
             </td>
             <td class="table__description">
-                <p class="table__description--item">{{ $attendanceRecord['crock_in'] }}</p>
+                <p class="table__description--item">{{ $attendanceRecord['clock_in'] }}</p>
             </td>
             <td class="table__description">
                 <p class="table__description--item">{{ $attendanceRecord['clock_out'] }}</p>
@@ -57,7 +57,7 @@
                 <p class="table__description--item">{{ $attendanceRecord['total_time'] }}</p>
             </td>
             <td class="table__description">
-                <a class="table__item--detail--link" href="{{ url('/attendance/' . $attendanceRecord['id']) }}">詳細</a>
+                <a class="table__item--detail--link" href="{{ url('/attendance/detail/' . $attendanceRecord['id']) }}">詳細</a>
             </td>
         </tr>
         @endforeach

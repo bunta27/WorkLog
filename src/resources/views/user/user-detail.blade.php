@@ -9,7 +9,7 @@
     <div class="content__header">
         <h2 class="content__title">勤怠詳細</h2>
     </div>
-    <form class="form" action="{{ url('/attendance/ . $data['id']) }}" method="post">
+    <form class="form" action="{{ url('/attendance/' . $data['id']) }}" method="post">
         @csrf
         @if(is_null($data['application']))
             <div class="form__content">
@@ -31,10 +31,10 @@
                 <div class="error__message">
                     <div class="error__message--item">
                         @error('new_clock_in')
-                        {{ $message }}
+                            {{ $message }}
                         @enderror
                         @error('new_clock_out')
-                        {{ $message }}
+                            {{ $message }}
                         @enderror
                     </div>
                 </div>
@@ -71,11 +71,11 @@
                 </div>
                 <div class="form__group">
                     <p class="form__header">備考</p>
-                    <textarea class="form__textarea" type="text" name="comment" value="{{ $data['comment'] }}">
+                    <textarea class="form__textarea" name="comment">{{ $data['comment'] }}</textarea>
                 </div>
                 <div class="error__message">
                     @error('comment')
-                    {{ $message }}
+                        {{ $message }}
                     @enderror
                 </div>
             </div>
@@ -99,7 +99,7 @@
                     <input class="form__input readonly" type="text" value="{{ $data['clock_in'] }}" readonly>
                     <p>～</p>
                     <input class="form__input readonly" type="text" value="{{ $data['clock_out'] }}" readonly>
-                </div>>
+                </div>
                 <div class="form__group form__break-group">
                     <p class="form__header">休憩</p>
                     <div class="form__input-wrapper">
@@ -114,7 +114,7 @@
                 </div>
                 <div class="form__group">
                     <p class="form__header">備考</p>
-                    <textarea class="form__textarea readonly" type="text" name="comment" value="{{ $data['comment'] }}" readonly>
+                    <textarea class="form__textarea readonly" type="text" name="comment" readonly>{{ $data['comment'] }}</textarea>
                 </div>
                 <div class="form__button">
                     <p class="readonly-message">承認待ちのため修正はできません。</p>

@@ -41,7 +41,7 @@
                     </th>
                 </tr>
                 @foreach($formattedApplications as $application)
-                @if($application['approval_status'] === '承認済み')
+                @if($application['approval_status'] === '承認待ち')
                 <tr class="table__row">
                     <td class="table__description">
                         <p class="table__description--item">{{ $application['approval_status'] }}</p>
@@ -59,7 +59,7 @@
                         <p class="table__description--item">{{ $application['application_date'] }}</p>
                     </td>
                     <td class="table__description">
-                        <a class="table__item--detail--link" href="{{ url('/application/' . $application['id']) }}">詳細</a>
+                        <a class="table__item--detail--link" href="{{ url('/attendance/detail/' . $application['attendance_record_id']) }}">詳細</a>
                     </td>
                 </tr>
                 @endif
@@ -107,7 +107,7 @@
                         <p class="table__description--item">{{ $application['application_date'] }}</p>
                     </td>
                     <td class="table__description">
-                        <a class="table__item--detail--link" href="{{ url('/application/' . $application['id']) }}">詳細</a>
+                        <a class="table__item--detail--link" href="{{ url('/attendance/detail/' . $application['attendance_record_id']) }}">詳細</a>
                     </td>
                 </tr>
                 @endif

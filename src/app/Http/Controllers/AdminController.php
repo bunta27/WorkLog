@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
         $users = User::all();
 
-        return view('admin/admin-staff-list', compact('users'));
+        return view('admin/staff-list', compact('users'));
     }
 
     public function staffDetailList(Request $request, $id)
@@ -73,30 +73,36 @@ class AdminController extends Controller
 
     public function detail($id)
     {
-        $attendanceRecords = AttendanceRecord::with('breaks')->findOrFail($id);
+        $attendanceRecord = AttendanceRecord::with('breaks')->findOrFail($id);
+
         $user = User::findOrFail($attendanceRecord->user_id);
 
-        $applications = Application::where('attendance_record_id', $attendanceRecord->id)->where('approval_status', '承認待ち')->get();
+        $applications = Application::where('attendance_record_id', $attendanceRecord->id)
+            ->where('approval_status', '承認待ち')
+            ->get();
 
-        $breaks = $attendanceRecords->breaks->map(function ($break) {
+        $breaks = $attendanceRecord->breaks->map(function ($break) {
             return [
-                'break_in' => $break->break_in ? Carbon::parse($break->break_in)->format('H:i') : '',
+                'break_in'  => $break->break_in  ? Carbon::parse($break->break_in)->format('H:i') : '',
                 'break_out' => $break->break_out ? Carbon::parse($break->break_out)->format('H:i') : '',
             ];
-        })->toArray;
+        })->toArray();
 
-        $attendanceRecord = [
-            'application' => $attendance->application,
-            'id' => $attendanceRecords->id,
-            'year' => $attendance->date ? Carbon::parse($attendanceRecords->date)->format('Y年') : null,
-            'date' => $attendanceRecords->date ? Carbon::parse($attendanceRecords->date)->format('m月d日') : null,
-            'clock_in' => $attendanceRecords->clock_in ? Carbon::parse($attendanceRecords->clock_in)->format('H:i') : null,
-            'clock_out' => $attendanceRecords->clock_out ? Carbon::parse($attendanceRecords->clock_out)->format('H:i') : null,
-            'breaks' => $breaks,
-            'comment' => $attendanceRecords->comment,
+        $attendanceData = [
+            'id'        => $attendanceRecord->id,
+            'year'      => $attendanceRecord->date ? Carbon::parse($attendanceRecord->date)->format('Y年') : null,
+            'date'      => $attendanceRecord->date ? Carbon::parse($attendanceRecord->date)->format('m月d日') : null,
+            'clock_in'  => $attendanceRecord->clock_in ? Carbon::parse($attendanceRecord->clock_in)->format('H:i') : null,
+            'clock_out' => $attendanceRecord->clock_out ? Carbon::parse($attendanceRecord->clock_out)->format('H:i') : null,
+            'breaks'    => $breaks,
+            'comment'   => $attendanceRecord->comment,
         ];
 
-        return view('admin/admin-detail', compact('user', 'attendanceRecord', 'application'));
+        return view('admin/admin-detail', [
+            'user'             => $user,
+            'attendanceRecord' => $attendanceData,
+            'applications'     => $applications,
+        ]);
     }
 
     public function amendmentApplication(CorrectionRequest $request, $id)

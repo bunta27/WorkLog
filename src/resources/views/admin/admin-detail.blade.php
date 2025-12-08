@@ -9,7 +9,7 @@
     <div class="content__header">
         <h2 class="content__title">勤怠詳細</h2>
     </div>
-    <form class="form" action="{{ url('/attendance/ . $attendanceRecord['id']) }}" method="post">
+    <form class="form" action="{{ url('/attendance/' . $attendanceRecord['id']) }}" method="post">
         @csrf
             <div class="form__content">
                 <div class="form__group">

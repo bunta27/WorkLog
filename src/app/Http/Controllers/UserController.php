@@ -151,10 +151,10 @@ class UserController extends Controller
 
     public function detail($id)
     {
-        $attendanceRecord = AttendanceRecord::firstOrFail($id);
+        $attendanceRecord = AttendanceRecord::findOrFail($id);
         $user = Auth::user();
 
-        $masterBreaks = $attendanceRecord->breaks()->map(function ($break) {
+        $masterBreaks = $attendanceRecord->breaks->map(function ($break) {
             return [
                 'break_in' => $break->break_in ? Carbon::parse($break->break_in)->format('H:i') : null,
                 'break_out' => $break->break_out ? Carbon::parse($break->break_out)->format('H:i') : null,
@@ -162,7 +162,7 @@ class UserController extends Controller
         })->toArray();
 
         $application = Application::where('attendance_record_id', $id)
-            ->where('approval_stastus', '承認待ち')
+            ->where('approval_status', '承認待ち')
             ->first();
 
         $proposal = [];
@@ -193,7 +193,7 @@ class UserController extends Controller
     public function amendmentApplication(CorrectionRequest $request, $id)
     {
         $user = Auth::user();
-        $application = Application::creat([
+        $application = Application::create([
             'user_id' => $user->id,
             'attendance_record_id' => $id,
             'approval_status' => '承認待ち',
@@ -217,7 +217,7 @@ class UserController extends Controller
 
         $application->proposalBreaks()->createMany($pairs);
 
-        return redirect('/stamp_correction_requests/list');
+        return redirect('/stamp_correction_request/list');
     }
 
     public function applicationList()
@@ -228,6 +228,7 @@ class UserController extends Controller
         $formattedApplications = $applications->map(function ($application) {
             return [
                 'id' => $application->id,
+                'attendance_record_id'=> $application->attendance_record_id,
                 'application_date' => $application->application_date ? Carbon::parse($application->application_date)->format('Y/m/d') : null,
                 'date' => $application->new_date,
                 'clock_in' => $application->new_clock_in,
