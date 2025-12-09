@@ -1,0 +1,81 @@
+.content {
+    max-width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 200px 0;
+    background: #F0EFF2;
+    text-align: center;
+}
+
+.content__status {
+    margin-bottom: 16px;
+}
+
+.content__title {
+    display: inline-block;
+    background: #c8c8c8;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 18px;
+    color: #696969;
+    letter-spacing: 0.2em;
+}
+
+.current-date__item,
+.current-time__item {
+    width: 100%;
+    margin: 16px auto;
+    text-align: center;
+    pointer-events: none;
+}
+
+.current-date {
+    font-size: 40px;
+    font-weight: normal;
+}
+
+.current-time {
+    font-size: 80px;
+    letter-spacing: 0.1em;
+}
+
+.attendance__button {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 40px;
+}
+
+.attendance__button--submit,
+.attendance-break__button--submit {
+    width: 220px;
+    padding: 14px 0;
+    margin: 20px 10px;
+    border-radius: 20px;
+    font-size: 32px;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.attendance__button--submit {
+    background: #000;
+    color: #fff;
+}
+
+.attendance-break__button--submit {
+    background: #fff;
+    color: #000;
+}
+
+.attendance__button--submit:hover,
+.attendance-break__button--submit:hover {
+    opacity: 0.8;
+}
+
+.attendance__message {
+    width: 100%;
+    margin-top: 60px;
+    font-size: 26px;
+    letter-spacing: 0.2em;
+}

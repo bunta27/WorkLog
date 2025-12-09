@@ -33,8 +33,8 @@ class UserController extends Controller
         $now = new \DateTime();
         $week = [0 => '日', 1 => '月', 2 => '火', 3 => '水', 4 => '木', 5 => '金', 6 =>'土'];
         $weekday = $week[$now->format('w')];
-        $formattedDate = $now->format("Y年m月d日 ({$weekday})");
-        $formattedTime = $now->format('H:i:s');
+        $formattedDate = $now->format('Y年m月d日') . " ({$weekday})";
+        $formattedTime = $now->format('H:i');
 
         return view(
             'user/attendance-register', compact('user', 'formattedDate', 'formattedTime')
