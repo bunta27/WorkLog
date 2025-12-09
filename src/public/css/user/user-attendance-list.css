@@ -1,5 +1,5 @@
 .attendance-content {
-    width: 900px;
+    max-width: 900px;
     height: 100vh;
     margin: 0 auto;
     background: #F0EFF2;
@@ -10,10 +10,154 @@
     height: 40px;
     margin-top: 40px;
     border-left: 8px solid black;
+    display: flex;
+    align-items: center;
 }
 
 .content__title {
     text-align: left;
     padding-left: 20px;
     font-size: 30px;
+}
+
+.content__menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    padding: 0 25px;
+    margin: 45px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.previous-month,
+.next-month {
+    font-size: 16px;
+    color: #737373;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: 0.2em;
+}
+
+.previous-month::before,
+.next-month::after {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    background-image: url('/images/arrow.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: opacity(0.3);
+}
+
+.previous-month::before {
+    transform: rotate(0deg);
+}
+
+.next-month::after {
+    transform: rotate(180deg);
+}
+
+.current-month {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.current-month::before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-image: url('/images/calender.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: rotate(0deg);
+}
+
+.next-month-placeholder {
+    width: 60px;
+}
+
+.table {
+    width: 100%;
+    max-width: 900px;
+    margin: 24px auto 40px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 16px;
+}
+
+.col-clock-in,
+.col-clock-out,
+.col-break,
+.col-total {
+    width: 120px;
+}
+
+.col-date,
+.col-detail {
+    width: 160px;
+}
+
+.table__row {
+    height: 45px;
+}
+
+.table__row th,
+.table__row td {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.table__row td {
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.table__row:first-child th {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.table__header--item,
+.table__description--item {
+    display: block;
+    margin: 0;
+    color: #737373;
+    letter-spacing: 0.2em;
+}
+
+.table__row th:first-child,
+.table__row td:first-child {
+    padding-left: 55px;
+    text-align: left;
+}
+
+.table__row th:last-child,
+.table__row td:last-child {
+    padding-left: 40px;
+    padding-right: 87px;
+    text-align: center;
+}
+
+.table__item--detail--link {
+    display: inline-block;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+}
+
+.table__row:last-child td {
+    border-bottom: none;
 }

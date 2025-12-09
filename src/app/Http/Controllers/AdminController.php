@@ -37,6 +37,23 @@ class AdminController extends Controller
         return view('admin/staff-list', compact('users'));
     }
 
+    private function trimLeadingHourZero(?string $time): ?string
+    {
+        if ($time === null || $time === '') {
+            return $time;
+        }
+
+        [$h, $m] = explode(':', $time);
+
+        $h = ltrim($h, '0');
+
+        if ($h === '') {
+            $h = '0';
+        }
+
+        return $h . ':' . $m;
+    }
+
     public function staffDetailList(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -57,8 +74,8 @@ class AdminController extends Controller
                 'date' => $date->format('m/d'),
                 'clock_in' => $attendance->clock_in ? Carbon::parse($attendance->clock_in)->format('H:i') : null,
                 'clock_out' => $attendance->clock_out ? Carbon::parse($attendance->clock_out)->format('H:i') : null,
-                'total_time' => $attendance->total_time,
-                'total_break_time' => $attendance->total_break_time,
+                'total_time' => $this->trimLeadingHourZero($attendance->total_time),
+                'total_break_time' => $this->trimLeadingHourZero($attendance->total_break_time),
             ];
         });
 

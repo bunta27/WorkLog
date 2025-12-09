@@ -11,7 +11,7 @@
     </div>
     <div class="content__menu">
         <a class="previous-month" href="?date={{ $previousMonth }}">前月</a>
-        <p class="current-month">{{ $date->format('Y-m') }}</p>
+        <p class="current-month">{{ $date->format('Y/m') }}</p>
         @if ($date->lt(\Carbon\Carbon::now()))
             <a class="next-month" href="?date={{ $nextMonth }}">翌月</a>
         @else
@@ -19,6 +19,14 @@
         @endif
     </div>
     <table class="table">
+        <colgroup>
+            <col class="col-date">
+            <col class="col-clock-in">
+            <col class="col-clock-out">
+            <col class="col-break">
+            <col class="col-total">
+            <col class="col-detail">
+        </colgroup>
         <tr class="table__row">
             <th class="table__header">
                 <p class="table__header--item">日付</p>

@@ -117,6 +117,23 @@ class UserController extends Controller
         return redirect('/attendance');
     }
 
+    private function trimLeadingHourZero(?string $time): ?string
+    {
+        if ($time === null || $time === '') {
+            return $time;
+        }
+
+        [$h, $m] = explode(':', $time);
+
+        $h = ltrim($h, '0');
+
+        if ($h === '') {
+            $h = '0';
+        }
+
+        return $h . ':' . $m;
+    }
+
     public function list(Request $request)
     {
         $users = Auth::user();
@@ -137,8 +154,8 @@ class UserController extends Controller
                 'date' => $date->format('m/d') . "({$weekdays[$date->dayOfWeek]})",
                 'clock_in' => $record->clock_in ? Carbon::parse($record->clock_in)->format('H:i') : null,
                 'clock_out' => $record->clock_out ? Carbon::parse($record->clock_out)->format('H:i') : null,
-                'total_time' => $record->total_time,
-                'total_break_time' => $record->total_break_time,
+                'total_time' => $this->trimLeadingHourZero($record->total_time),
+                'total_break_time' => $this->trimLeadingHourZero($record->total_break_time),
             ];
         });
         return view('user/user-attendance-list',[
