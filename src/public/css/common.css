@@ -5,6 +5,15 @@
     font-style: normal;
 }
 
+body {
+    background: #F0EFF2;
+}
+
+body.auth-body {
+    background: #fff;
+    height: 100vh;
+}
+
 .header {
     background: black;
     width: 100%;
@@ -62,7 +71,9 @@ main {
 .content {
     margin: 0 auto;
     max-width: 1540px;
+    min-height: 100vh;
     padding: 50px 30px;
+    background: #fff;
 }
 
 .content__header {

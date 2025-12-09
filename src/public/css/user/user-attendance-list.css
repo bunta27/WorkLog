@@ -1,0 +1,19 @@
+.attendance-content {
+    width: 900px;
+    height: 100vh;
+    margin: 0 auto;
+    background: #F0EFF2;
+}
+
+.content__header {
+    width: 900px;
+    height: 40px;
+    margin-top: 40px;
+    border-left: 8px solid black;
+}
+
+.content__title {
+    text-align: left;
+    padding-left: 20px;
+    font-size: 30px;
+}

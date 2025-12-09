@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{{ asset('css/user/register.css') }}">
 @endsection
 
+@section('bodyClass', 'auth-body')
+
 @section('content')
 <div class="content">
     <div class="content__header">

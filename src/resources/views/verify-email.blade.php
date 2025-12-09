@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{{ asset('css/verify-email.css') }}">
 @endsection
 
+@section('bodyClass', 'auth-body')
+
 @section('content')
 <div class="authenticate verify">
     <p class="verify__message">

@@ -12,7 +12,7 @@
         @yield('css')
     </head>
 
-    <body>
+    <body class="{{ $bodyClass ?? '' }}">
         <header class="header">
             <div class="header__inner">
                 <a href="/" class="header__logo">
