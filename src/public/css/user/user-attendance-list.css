@@ -2,7 +2,6 @@
     max-width: 900px;
     height: 100vh;
     margin: 0 auto;
-    background: #F0EFF2;
 }
 
 .content__header {
@@ -15,6 +14,7 @@
 }
 
 .content__title {
+    margin: 0;
     text-align: left;
     padding-left: 20px;
     font-size: 30px;

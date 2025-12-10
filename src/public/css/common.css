@@ -73,7 +73,7 @@ main {
     max-width: 1540px;
     min-height: 100vh;
     padding: 50px 30px;
-    background: #fff;
+    background: none;
 }
 
 .content__header {
