@@ -140,6 +140,10 @@
     box-sizing: border-box;
 }
 
+.form__textarea .readonly {
+    resize: none;
+}
+
 .error__message {
     margin: 0 40px;
     font-size: 14px;
@@ -175,15 +179,15 @@
 }
 
 .readonly-message {
-    margin: 0;
+    margin: 50px 0;
     font-size: 18px;
+    font-weight: 800;
     color: #f00;
     opacity: 0.5;
     text-align: center;
 }
 
 .readonly {
-    background: #f6f6f6;
-    color: #999;
     pointer-events: none;
+    border: none;
 }

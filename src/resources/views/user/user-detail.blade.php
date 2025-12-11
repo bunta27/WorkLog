@@ -34,16 +34,16 @@
                             <p>～</p>
                             <input class="form__input" type="text" name="new_clock_out" value="{{ $data['clock_out'] }}">
                         </div>
-                    </div>
-                </div>
-                <div class="error__message">
-                    <div class="error__message--item">
-                        @error('new_clock_in')
-                            {{ $message }}
-                        @enderror
-                        @error('new_clock_out')
-                            {{ $message }}
-                        @enderror
+                        <div class="error__message">
+                            <div class="error__message--item">
+                                @error('new_clock_in')
+                                    <p>{{ $message }}</p>
+                                @enderror
+                                @error('new_clock_out')
+                                    <p>{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @php
@@ -63,27 +63,25 @@
                         <p class="form__header">{{ $label }}</p>
                         <div class="form__input-wrapper">
                             <div class="form__input-group">
-                                <input class="form__input" type="text" name="new_break_in[]" value="{{ $break['break_in'] }}">
+                                <input class="form__input" type="text" name="new_break_in[{{ $i }}]" value="{{ $break['break_in'] }}">
                                 <p>～</p>
-                                <input class="form__input" type="text" name="new_break_out[]" value="{{ $break['break_out'] }}">
+                                <input class="form__input" type="text" name="new_break_out[{{ $i }}]" value="{{ $break['break_out'] }}">
+                            </div>
+                            <div class="error__message">
+                                <div class="error__message--item">
+                                    @error("new_break_in.$i")
+                                        <p>{{ $message }}</p>
+                                    @enderror
+
+                                    @error("new_break_out.$i")
+                                        <p>{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endfor
-                <div class="error__message">
-                    <div class="error__message--item">
-                        @foreach($errors->get('new_break_in.*') as $messages)
-                            @foreach((array) $messages as $message)
-                                <p>{{ $message }}</p>
-                            @endforeach
-                        @endforeach
-                        @foreach($errors->get('new_break_out.*') as $messages)
-                            @foreach((array) $messages as $message)
-                                <p>{{ $message }}</p>
-                            @endforeach
-                        @endforeach
-                    </div>
-                </div>
+
                 <div class="form__group form__group--remark">
                     <p class="form__header">備考</p>
                     <div class="form__input-wrapper">
@@ -148,7 +146,7 @@
                 </div>
             </div>
             <div class="form__button">
-                <p class="readonly-message">承認待ちのため修正はできません。</p>
+                <p class="readonly-message">* 承認待ちのため修正はできません。</p>
             </div>
         @endif
     </form>
