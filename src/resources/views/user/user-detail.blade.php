@@ -22,8 +22,8 @@
                 <div class="form__group form__group--date">
                     <p class="form__header">日付</p>
                     <div class="form__input-wrapper">
-                        <input class="form__input form__input--year readonly" type="text" value="{{ $data['year'] }}" readonly>
-                        <input class="form__input form__input--date readonly" type="text" name="new_date" value="{{ $data['date'] }}" readonly>
+                        <input class="form__input readonly" type="text" value="{{ $data['year'] }}" readonly>
+                        <input class="form__input readonly" type="text" name="new_date" value="{{ $data['date'] }}" readonly>
                     </div>
                 </div>
                 <div class="form__group form__group--work">

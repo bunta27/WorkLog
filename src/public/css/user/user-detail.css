@@ -66,6 +66,11 @@
     gap: 100px;
 }
 
+.form__group--date {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 .form__input-wrapper {
     flex: 1;
     width: 320px;
@@ -103,6 +108,10 @@
     color: #000;
 }
 
+.form__group--date .form__input:last-child {
+    margin-left: 110px;
+}
+
 .form__input-group {
     display: flex;
     align-items: center;
@@ -113,6 +122,7 @@
     margin: 0;
     font-size: 16px;
 }
+
 .form__group--remark {
     align-items: center;
     padding-top: 8px;
@@ -140,7 +150,6 @@
     margin: 0;
 }
 
-
 .form__button {
     width: 900px;
     margin-top: -30px;
@@ -165,7 +174,6 @@
     opacity: 0.8;
 }
 
-/* 承認待ちメッセージ */
 .readonly-message {
     margin: 0;
     font-size: 18px;
@@ -173,8 +181,6 @@
     opacity: 0.5;
     text-align: center;
 }
-
-/* ====== readonly 表現 ====== */
 
 .readonly {
     background: #f6f6f6;
