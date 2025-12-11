@@ -247,7 +247,8 @@ class UserController extends Controller
                 'id' => $application->id,
                 'attendance_record_id'=> $application->attendance_record_id,
                 'application_date' => $application->application_date ? Carbon::parse($application->application_date)->format('Y/m/d') : null,
-                'date' => $application->new_date,
+                'date' => $application->new_date ? Carbon::parse($application->new_date)->format('Y/m/d')
+                : null,
                 'clock_in' => $application->new_clock_in,
                 'clock_out' => $application->new_clock_out,
                 'comment' => $application->comment,

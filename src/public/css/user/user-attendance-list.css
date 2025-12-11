@@ -5,9 +5,9 @@
 }
 
 .content__header {
-    width: 900px;
+    width: 100%;
+    margin: 40px auto 50px;
     height: 40px;
-    margin-top: 40px;
     border-left: 8px solid black;
     display: flex;
     align-items: center;
