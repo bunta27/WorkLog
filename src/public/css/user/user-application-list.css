@@ -37,70 +37,34 @@
     user-select: none;
 }
 
-.application-list__tab-label:nth-of-type(2) {
-    padding-left: 20px;
-}
-
-.application-list__tab-input:checked+.application-list__tab-label {
+.application-list__tab-input:checked + .application-list__tab-label {
     color: #000;
     font-weight: 700;
 }
 
 .application-list__tab-border {
-    width: 100%;
+    width: 900px;
     height: 1px;
     background: #333;
     margin-top: 8px;
     margin-bottom: 24px;
 }
 
-.application-list__tab-content {
-    display: none;
-}
-
-.tab-input--pending:checked~.application-list__tab-content--pending {
-    display: block;
-}
-
-.tab-input--approved:checked~.application-list__tab-content--approved {
-    display: block;
-}
-
 .application-table {
-    width: 100%;
+    width: 900px;
     border-collapse: collapse;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
+    table-layout: fixed;
 }
 
-.col-status {
-    width: 90px;
-}
-
-.col-name {
-    width: 110px;
-}
-
-.col-target {
-    width: 110px;
-}
-
-.col-reason {
-    width: 180px;
-    max-width: 180px;
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
-
-.col-applied {
-    width: 110px;
-}
-
-.col-detail {
-    width: 80px;
-}
+.col-status { width: 90px; }
+.col-name   { width: 110px; }
+.col-target { width: 110px; }
+.col-reason { width: 140px; }
+.col-applied{ width: 110px; }
+.col-detail { width: 90px; }
 
 .table__row {
     border-bottom: 3px solid #e1e1e1;
@@ -145,22 +109,43 @@
     color: #737373;
 }
 
+.col-reason {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
 .col-status .table__description--item,
-.col-name .table__description--item,
+.col-name   .table__description--item,
 .col-reason .table__description--item,
 .col-detail .table__description--item {
     letter-spacing: 0.2em;
 }
 
 .table__item--detail--link {
+    width: 90px;
     display: inline-block;
     font-size: 16px;
     text-decoration: none;
     color: #000;
     letter-spacing: 0.2em;
+    padding: 2px 6px;
+    border-radius: 4px;
 }
 
 .table__item--detail--link:hover {
     background: #000;
     color: #fff;
+}
+
+.application-tbody {
+    display: none;
+}
+
+.tab-input--pending:checked ~ .application-table .application-tbody--pending {
+    display: table-row-group;
+}
+
+.tab-input--approved:checked ~ .application-table .application-tbody--approved {
+    display: table-row-group;
 }
