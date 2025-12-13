@@ -30,7 +30,7 @@
 
 .application-list__tab-label {
     display: inline-block;
-    padding: 10px 60px;
+    padding: 10px 0;
     font-size: 16px;
     color: #999;
     cursor: pointer;
