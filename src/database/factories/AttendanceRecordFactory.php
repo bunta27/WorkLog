@@ -30,7 +30,17 @@ class AttendanceRecordFactory extends Factory
             'clock_out' => $clockOut,
             'total_break_time' => gmdate('H:i', $totalBreakSeconds),
             'total_time' => gmdate('H:i', $workedSeconds),
-            'comment' => $this->faker->optional()->sentence(),
+            'comment' => $this->faker->optional()->randomElement([
+                '電車遅延のため',
+                '体調不良のため',
+                '私用のため',
+                '業務都合のため',
+                '打刻漏れのため',
+                'システム不具合のため',
+                '交通渋滞のため',
+                '急用のため',
+            ]),
+
         ];
     }
 }

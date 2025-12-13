@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\AttendanceRecord;
+use App\Models\Application;
 use Illuminate\Support\Facades\DB;
 
-class AttendanceRecordsTableSeeder extends Seeder
+class ApplicationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class AttendanceRecordsTableSeeder extends Seeder
      */
     public function run()
     {
-        AttendanceRecord::factory()->count(20)->create();
+        Application::factory()->count(10)->create();
     }
 }
