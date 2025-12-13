@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\AttendanceRecord;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AttendanceRecordFactory extends Factory
 {
@@ -13,23 +13,37 @@ class AttendanceRecordFactory extends Factory
 
     public function definition()
     {
-        $userId = User::inRandomOrder()->value('id');
+        $userId = User::inRandomOrder()->value('id') ?? User::factory()->create()->id;
 
-        $date = $this->faker->dateTimeBetween('-10 days', '+10 days')->format('Y-m-d');
-        $clockIn = Carbon::createFromFormat('Y-m-d H:i:s', $date . ' ' . $this->faker->time('H:i:s'));
-        $clockOut = Carbon::createFromFormat('Y-m-d H:i:s', $date . ' ' . $this->faker->time('H:i:s'))->addHours(rand(6, 10));
+        $workDate = Carbon::parse(
+            $this->faker->dateTimeBetween('-10 days', '+3 days')
+        )->startOfDay();
 
-        $totalBreakSeconds = 0;
+        $clockIn = $this->randomTimeOnDate($workDate, 7, 11);
 
-        $workedSeconds = $clockOut->diffInSeconds($clockIn) - $totalBreakSeconds;
+        $minOut = $clockIn->copy()->addHours(6);
+        $maxOut = $clockIn->copy()->addHours(10);
+        $endCap = $workDate->copy()->setTime(22, 0);
+
+        $clockOutUpper = $maxOut->greaterThan($endCap) ? $endCap : $maxOut;
+
+        if ($clockOutUpper->lessThanOrEqualTo($minOut)) {
+            $clockOutUpper = $minOut->copy()->addMinutes(15);
+        }
+
+        $clockOut = $this->randomTimeBetween($minOut, $clockOutUpper);
+
+        $totalBreakMinutes = 0;
+
+        $workedMinutes = max(0, $clockIn->diffInMinutes($clockOut) - $totalBreakMinutes);
 
         return [
             'user_id' => $userId,
-            'date' => $date,
-            'clock_in' => $clockIn,
-            'clock_out' => $clockOut,
-            'total_break_time' => gmdate('H:i', $totalBreakSeconds),
-            'total_time' => gmdate('H:i', $workedSeconds),
+            'date' => $workDate->format('Y-m-d'),
+            'clock_in' => $clockIn->format('H:i:s'),
+            'clock_out' => $clockOut->format('H:i:s'),
+            'total_break_time' => sprintf('%02d:%02d', 0, 0),
+            'total_time' => sprintf('%02d:%02d', intdiv($workedMinutes, 60), $workedMinutes % 60),
             'comment' => $this->faker->optional()->randomElement([
                 '電車遅延のため',
                 '体調不良のため',
@@ -40,7 +54,45 @@ class AttendanceRecordFactory extends Factory
                 '交通渋滞のため',
                 '急用のため',
             ]),
-
         ];
+    }
+
+    private function randomTimeOnDate(Carbon $date, int $startHour, int $endHour): Carbon
+    {
+        $minuteOptions = [0, 15, 30, 45];
+
+        $hour = $this->faker->numberBetween($startHour, $endHour);
+        $minute = $minuteOptions[array_rand($minuteOptions)];
+
+        if ($hour === $endHour && $minute > 45) {
+            $minute = 45;
+        }
+
+        return $date->copy()->setTime($hour, $minute, 0);
+    }
+
+    private function randomTimeBetween(Carbon $start, Carbon $end): Carbon
+    {
+        $startTs = $start->timestamp;
+        $endTs = $end->timestamp;
+
+        if ($endTs <= $startTs) {
+            return $start->copy();
+        }
+
+        $startMin = intdiv($startTs, 60);
+        $endMin = intdiv($endTs, 60);
+
+        $startMin = (int) (ceil($startMin / 15) * 15);
+        $endMin = (int) (floor($endMin / 15) * 15);
+
+        if ($endMin < $startMin) {
+            return $start->copy();
+        }
+
+        $pickedMin = $this->faker->numberBetween($startMin, $endMin);
+        $pickedMin = (int) (floor($pickedMin / 15) * 15);
+
+        return Carbon::createFromTimestamp($pickedMin * 60);
     }
 }
