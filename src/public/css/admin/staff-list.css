@@ -1,0 +1,110 @@
+.staff-list-content {
+    max-width: 900px;
+    margin: 0 auto 80px;
+    background: transparent;
+}
+
+.staff-list-content .content__header {
+    width: 100%;
+    margin: 40px auto 50px;
+    height: 40px;
+    border-left: 8px solid #000;
+    display: flex;
+    align-items: center;
+}
+
+.content__title {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 30px;
+    text-align: left;
+}
+
+.staff-table {
+    width: 900px;
+    margin: 90px auto;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+.staff-table col.col-name {
+    width: 200px;
+}
+
+.staff-table col.col-email {
+    width: 240px;
+}
+
+.staff-table col.col-detail {
+    width: 200px;
+}
+
+.staff-table thead th {
+    padding: 14px 18px;
+    text-align: center;
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.table__header--item {
+    margin: 0;
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    color: #737373;
+}
+
+.staff-table thead th:nth-child(2),
+.staff-table tbody td:nth-child(2) {
+    text-align: center;
+    padding-left: 40px;
+}
+
+.staff-table tbody tr {
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.staff-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table__description {
+    padding: 12px 10px;
+    text-align: center;
+}
+
+.staff-table tbody td:first-child {
+    padding-left: 20px;
+    text-align: center;
+}
+
+.staff-table thead th:nth-child(1),
+.staff-table tbody td:nth-child(1) {
+    text-align: center;
+    padding-left: 180px;
+}
+
+.staff-table thead th:nth-child(3),
+.staff-table tbody td:nth-child(3) {
+    text-align: center;
+    padding-right: 130px;
+}
+
+.table__description--item {
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    color: #737373;
+    letter-spacing: 0.2em;
+}
+
+.table__item--detail--link {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
