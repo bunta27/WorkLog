@@ -1,0 +1,173 @@
+.admin-application-content {
+    max-width: 900px;
+    margin: 0 auto 80px;
+    background: transparent;
+}
+
+.admin-application-content .content__header {
+    width: 100%;
+    margin: 40px auto 30px;
+    height: 40px;
+    border-left: 8px solid #000;
+    display: flex;
+    align-items: center;
+}
+
+.content__title {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 30px;
+}
+
+.application-list {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.application-list__tab-input {
+    display: none;
+}
+
+.application-list__tab-label {
+    display: inline-block;
+    padding: 10px 45px;
+    font-size: 16px;
+    color: #999;
+    cursor: pointer;
+    user-select: none;
+}
+
+.application-list__tab-input:checked+.application-list__tab-label {
+    color: #000;
+    font-weight: 700;
+}
+
+.application-list__tab-border {
+    width: 900px;
+    height: 1px;
+    background: #333;
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.application-table {
+    width: 900px;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+.application-table thead th {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.col-status {
+    width: 90px;
+}
+
+.col-name {
+    width: 110px;
+}
+
+.col-target {
+    width: 110px;
+}
+
+.col-reason {
+    width: 140px;
+}
+
+.col-applied {
+    width: 110px;
+}
+
+.col-detail {
+    width: 90px;
+}
+
+.table__row {
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.table__row:last-child {
+    border-bottom: none;
+}
+
+.table__header,
+.table__description {
+    padding: 14px 12px;
+    text-align: left;
+    align-items: center;
+}
+
+.table__header:first-child,
+.table__description:first-child {
+    text-align: center;
+}
+
+.table__row td:first-child,
+.table__row th:first-child {
+    padding-left: 20px;
+}
+
+.table__row td:last-child,
+.table__row th:last-child {
+    padding-right: 60px;
+}
+
+.table__header--item {
+    margin: 0;
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    color: #737373;
+}
+
+.table__description--item {
+    margin: 0;
+    font-size: 16px;
+    color: #737373;
+}
+
+.col-reason {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.col-status .table__description--item,
+.col-name .table__description--item,
+.col-reason .table__description--item,
+.col-detail .table__description--item {
+    letter-spacing: 0.2em;
+}
+
+.table__item--detail--link {
+    width: 90px;
+    display: inline-block;
+    font-size: 16px;
+    text-decoration: none;
+    color: #000;
+    letter-spacing: 0.2em;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.table__item--detail--link:hover {
+    background: #000;
+    color: #fff;
+}
+
+.application-tbody {
+    display: none;
+}
+
+.tab-input--pending:checked~.application-table .application-tbody--pending {
+    display: table-row-group;
+}
+
+.tab-input--approved:checked~.application-table .application-tbody--approved {
+    display: table-row-group;
+}
+

@@ -172,12 +172,35 @@ class AdminController extends Controller
     }
 
     public function applicationList()
-    {
-        $user = User::all();
-        $applications = Application::all();
+{
+    $applications = Application::with(['user', 'attendanceRecord'])
+        ->orderByDesc('id')
+        ->get();
 
-        return view('admin/admin-application-list', compact('user', 'applications'));
-    }
+    $formattedApplications = $applications->map(function ($application) {
+        return [
+            'id' => $application->id,
+            'attendance_record_id' => $application->attendance_record_id,
+
+            'user_name' => $application->user?->name,
+            'approval_status' => $application->approval_status,
+
+            'application_date' => $application->application_date
+                ? Carbon::parse($application->application_date)->format('Y/m/d')
+                : null,
+
+            'date' => $application->new_date
+                ? Carbon::parse($application->new_date)->format('Y/m/d')
+                : null,
+
+            'clock_in' => $application->new_clock_in,
+            'clock_out' => $application->new_clock_out,
+            'comment' => $application->comment,
+        ];
+    });
+
+    return view('admin.admin-application-list', compact('formattedApplications'));
+}
 
     public function approvalShow($attendance_correct_request_id)
     {

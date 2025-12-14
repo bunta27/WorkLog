@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="content">
+<div class="content admin-attendance-content">
     <div class="content__header">
         <h2 class="content__title">{{ $date->format('Y年m月d日') }}の勤怠</h2>
     </div>
@@ -19,6 +19,14 @@
         @endif
     </div>
     <table class="table">
+        <colgroup>
+            <col class="col-name">
+            <col class="col-clock-in">
+            <col class="col-clock-out">
+            <col class="col-break">
+            <col class="col-total">
+            <col class="col-detail">
+        </colgroup>
         <tr class="table__row">
             <th class="table__header">
                 <p class="table__header--item">名前</p>

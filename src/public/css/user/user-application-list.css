@@ -59,15 +59,36 @@
     table-layout: fixed;
 }
 
-.col-status { width: 90px; }
-.col-name   { width: 110px; }
-.col-target { width: 110px; }
-.col-reason { width: 140px; }
-.col-applied{ width: 110px; }
-.col-detail { width: 90px; }
+.application-table thead th {
+    border-bottom: 3px solid #e1e1e1;
+}
+
+.col-status {
+    width: 90px;
+}
+
+.col-name {
+    width: 110px;
+}
+
+.col-target {
+    width: 110px;
+}
+
+.col-reason {
+    width: 140px;
+}
+
+.col-applied {
+    width: 110px;
+}
+
+.col-detail {
+    width: 90px;
+}
 
 .table__row {
-    border-bottom: 3px solid #e1e1e1;
+    border-bottom: 2px solid #e1e1e1;
 }
 
 .table__row:last-child {
@@ -76,7 +97,7 @@
 
 .table__header,
 .table__description {
-    padding: 14px 12px;
+    padding: 14px 14px;
     text-align: left;
     align-items: center;
 }
