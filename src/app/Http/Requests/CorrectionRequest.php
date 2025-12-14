@@ -48,8 +48,10 @@ class CorrectionRequest extends FormRequest
             'new_clock_out.after' => '出勤時間もしくは退勤時間が不適切な値です',
 
             'new_break_in.array' => '休憩時間が不適切な値です',
+            'new_break_in.*.date_format'  => '休憩開始時間は「HH:MM」の形式で入力してください',
             'new_break_in.date_format' => '休憩開始時間は「HH:MM」の形式で入力してください',
             'new_break_out.array' => '休憩時間が不適切な値です',
+            'new_break_out.*.date_format' => '休憩終了時間は「HH:MM」の形式で入力してください',
             'new_break_out.date_format' => '休憩終了時間は「HH:MM」の形式で入力してください',
 
             'new_break_in.*.before' => '休憩時間が不適切な値です',

@@ -29,20 +29,24 @@
                 <div class="form__group form__group--work">
                     <p class="form__header">出勤・退勤</p>
                     <div class="form__input-wrapper">
-                        <div class="form__input-group">
-                            <input class="form__input" type="text" name="new_clock_in" value="{{ $data['clock_in'] }}">
-                            <p>～</p>
-                            <input class="form__input" type="text" name="new_clock_out" value="{{ $data['clock_out'] }}">
-                        </div>
-                        <div class="error__message">
-                            <div class="error__message--item">
-                                @error('new_clock_in')
-                                    <p>{{ $message }}</p>
-                                @enderror
-                                @error('new_clock_out')
-                                    <p>{{ $message }}</p>
-                                @enderror
+                        <div class="form__field">
+                            <div class="form__input-group">
+                                <input class="form__input" type="text" name="new_clock_in" value="{{ $data['clock_in'] }}">
+                                <p>～</p>
+                                <input class="form__input" type="text" name="new_clock_out" value="{{ $data['clock_out'] }}">
                             </div>
+                            @if($errors->has("new_clock_in") || $errors->has("new_clock_out"))
+                                <div class="error__message">
+                                    <div class="error__message--item">
+                                        @error('new_clock_in')
+                                            <p>{{ $message }}</p>
+                                        @enderror
+                                        @error('new_clock_out')
+                                            <p>{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -62,21 +66,24 @@
                     <div class="form__group form__group--break">
                         <p class="form__header">{{ $label }}</p>
                         <div class="form__input-wrapper">
-                            <div class="form__input-group">
-                                <input class="form__input" type="text" name="new_break_in[{{ $i }}]" value="{{ $break['break_in'] }}">
-                                <p>～</p>
-                                <input class="form__input" type="text" name="new_break_out[{{ $i }}]" value="{{ $break['break_out'] }}">
-                            </div>
-                            <div class="error__message">
-                                <div class="error__message--item">
-                                    @error("new_break_in.$i")
-                                        <p>{{ $message }}</p>
-                                    @enderror
-
-                                    @error("new_break_out.$i")
-                                        <p>{{ $message }}</p>
-                                    @enderror
+                            <div class="form__field">
+                                <div class="form__input-group">
+                                    <input class="form__input" type="text" name="new_break_in[{{ $i }}]" value="{{ $break['break_in'] }}">
+                                    <p>～</p>
+                                    <input class="form__input" type="text" name="new_break_out[{{ $i }}]" value="{{ $break['break_out'] }}">
                                 </div>
+                                @if($errors->has("new_break_in.$i") || $errors->has("new_break_out.$i"))
+                                    <div class="error__message">
+                                        <div class="error__message--item">
+                                            @error("new_break_in.$i")
+                                                <p>{{ $message }}</p>
+                                            @enderror
+                                            @error("new_break_out.$i")
+                                                <p>{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -86,12 +93,12 @@
                     <p class="form__header">備考</p>
                     <div class="form__input-wrapper">
                         <textarea class="form__textarea" name="comment">{{ $data['comment'] }}</textarea>
+                        <div class="error__message">
+                            @error('comment')
+                                <p>{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
-                </div>
-                <div class="error__message">
-                    @error('comment')
-                        {{ $message }}
-                    @enderror
                 </div>
             </div>
             <div class="form__button">
