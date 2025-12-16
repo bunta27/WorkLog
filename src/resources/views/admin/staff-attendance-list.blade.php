@@ -5,20 +5,28 @@
 @endsection
 
 @section('content')
-<div class="content">
+<div class="content staff-attendance-content">
     <div class="content__header">
         <h2 class="content__title">{{ $user->name }}さんの勤怠</h2>
     </div>
     <div class="content__menu">
         <a class="previous-month" href="?date={{ $previousMonth }}">前月</a>
         <p class="current-month">{{ $date->format('Y/m') }}</p>
-        @if ($date->lt(\Carbon\Carbon::create(2023, 12, 1)))
+        @if ($date->lt(\Carbon\Carbon::create(2026, 12, 31)))
             <a class="next-month" href="?date={{ $nextMonth }}">翌月</a>
         @else
             <div class="next-month-placeholder"></div>
         @endif
     </div>
     <table class="table">
+        <colgroup>
+            <col class="col-date">
+            <col class="col-clock-in">
+            <col class="col-clock-out">
+            <col class="col-break">
+            <col class="col-total">
+            <col class="col-detail">
+        </colgroup>
         <tr class="table__row">
             <th class="table__header">
                 <p class="table__header--item">日付</p>
@@ -67,7 +75,7 @@
             @csrf
             <input type="hidden" name="user_id" value="{{ $user->id }}">
             <input type="hidden" name="date" value="{{ $date->format('Y-m') }}">
-            <button class="csv__button--submit" type="submit">CSV出力</button>
+            <button class="form__button csv__button--submit" type="submit">CSV出力</button>
         </form>
     </div>
 </div>

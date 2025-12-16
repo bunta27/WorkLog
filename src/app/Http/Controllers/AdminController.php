@@ -71,7 +71,7 @@ class AdminController extends Controller
 
             return [
                 'id' => $attendance->id,
-                'date' => $date->format('m/d'),
+                'date' => $date->format('m/d') . "({$weekdays[$date->dayOfWeek]})",
                 'clock_in' => $attendance->clock_in ? Carbon::parse($attendance->clock_in)->format('H:i') : null,
                 'clock_out' => $attendance->clock_out ? Carbon::parse($attendance->clock_out)->format('H:i') : null,
                 'total_time' => $this->trimLeadingHourZero($attendance->total_time),
