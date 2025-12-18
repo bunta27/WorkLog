@@ -76,7 +76,7 @@
                                 <p class="table__description--item">{{ $application['application_date'] }}</p>
                             </td>
                             <td class="table__description col-detail">
-                                <a class="table__item--detail--link" href="{{ url('/attendance/detail/' . $application['attendance_record_id']) }}">
+                                <a class="table__item--detail--link" href="{{ url('/stamp_correction_request/approve/' . $application['id']) }}">
                                     詳細
                                 </a>
                             </td>
@@ -105,7 +105,7 @@
                                 <p class="table__description--item">{{ $application['application_date'] }}</p>
                             </td>
                             <td class="table__description col-detail">
-                                <a class="table__item--detail--link" href="{{ url('/attendance/detail/' . $application['attendance_record_id']) }}">
+                                <a class="table__item--detail--link" href="{{ url('/stamp_correction_request/approve/' . $application['id']) }}">
                                     詳細
                                 </a>
                             </td>
