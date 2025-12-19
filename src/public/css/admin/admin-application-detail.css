@@ -1,0 +1,208 @@
+.admin-application-detail-content {
+    max-width: 900px;
+    margin: 0 auto 80px;
+    background: transparent;
+}
+
+.admin-application-detail-content .content__header {
+    width: 100%;
+    margin: 40px auto 50px;
+    height: 40px;
+    border-left: 8px solid #000;
+    display: flex;
+    align-items: center;
+}
+
+.content__title {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 30px;
+    text-align: left;
+}
+
+.form {
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__content {
+    width: 100%;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.form__group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px 38px;
+    border-bottom: 2px solid #e1e1e1;
+    gap: 24px;
+    box-sizing: border-box;
+}
+
+.form__group:last-of-type {
+    border-bottom: none;
+}
+
+.form__header {
+    width: 150px;
+    text-align: left;
+    font-size: 16px;
+    color: #737373;
+    letter-spacing: 0.2em;
+    margin: 0;
+    align-items: center;
+}
+
+.form__group {
+    align-items: center;
+    text-align: left;
+    display: flex;
+    gap: 100px;
+}
+
+.form__group--date {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.form__input-wrapper {
+    flex: 1;
+    display: block;
+    width: 320px;
+    align-items: center;
+    border-radius: 4px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.form__input {
+    width: 100px;
+    height: 36px;
+    padding: 0;
+    font-size: 16px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.form__group--name .form__input-wrapper,
+.form__group--date .form__input-wrapper {
+    width: 320px;
+    justify-content: center;
+}
+
+.form__group--name .form__input,
+.form__group--date .form__input {
+    width: 103px;
+    background: transparent;
+    border: none;
+    text-align: center;
+    padding: 8px 12px;
+    color: #000;
+}
+
+.form__group--date .form__input:last-child {
+    margin-left: 110px;
+}
+
+.form__input-group {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.form__input-group>p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.form__group--remark {
+    align-items: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.form__textarea {
+    width: 320px;
+    min-height: 72px;
+    padding: 8px 12px;
+    font-size: 14px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.form__input.readonly,
+.form__textarea.readonly {
+    border: none;
+    background: transparent;
+}
+
+.error__message {
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    color: #e53935;
+    text-align: left;
+    width: 100%;
+}
+
+.error__message p {
+    margin: 0;
+}
+
+.form__button {
+    width: 900px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form__button--submit {
+    width: 130px;
+    height: 50px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    background: #000;
+    color: #fff;
+    font-size: 22px;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.form__button--submit:hover {
+    opacity: 0.8;
+}
+
+.form__button--submit.is-disabled,
+.form__button--submit:disabled {
+    padding: 8px 2px;
+    background: #696969;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.readonly-message {
+    margin: 50px 0;
+    font-size: 18px;
+    font-weight: 800;
+    color: #f00;
+    opacity: 0.5;
+    text-align: center;
+}
+
+.readonly {
+    pointer-events: none;
+    border: none;
+}
+
+.form__field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
