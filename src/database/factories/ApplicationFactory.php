@@ -12,18 +12,19 @@ class ApplicationFactory extends Factory
 {
     protected $model = Application::class;
 
-    public function definition()
+    public function definition(): array
     {
-        $attendance = AttendanceRecord::inRandomOrder()->first();
+        $user = User::inRandomOrder()->first() ?? User::factory()->create(['email_verified_at' => now()]);
+        $record = AttendanceRecord::factory()->create(['user_id' => $user->id]);
 
         return [
-            'user_id' => $attendance->user_id,
-            'attendance_record_id' => $attendance->id,
+            'user_id' => $user->id,
+            'attendance_record_id' => $record->id,
 
             'approval_status' => $this->faker->randomElement(['承認待ち', '承認済み']),
             'application_date' => now(),
 
-            'new_date' => $attendance->date,
+            'new_date' => now()->toDateString(),
 
             'new_clock_in' => Carbon::createFromTime(
                 rand(8, 10),

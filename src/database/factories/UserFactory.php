@@ -36,4 +36,14 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    // 例：stateを追加（すでにあるなら不要）
+    public function admin(): static
+    {
+        return $this->state(fn () => [
+            'admin_status' => 1,
+            'email_verified_at' => now(),
+        ]);
+    }
+
 }
