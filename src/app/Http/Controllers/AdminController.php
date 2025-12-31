@@ -218,52 +218,50 @@ class AdminController extends Controller
 
     public function approval(Request $request, $attendance_correct_request_id)
     {
-        $application = Application::findOrFail($attendance_correct_request_id);
-        $user = User::findOrFail($application->user_id);
+        $application = Application::with('proposalBreaks')->findOrFail($attendance_correct_request_id);
         $attendanceRecord = AttendanceRecord::findOrFail($application->attendance_record_id);
 
-        $application->approval_status = "承認済み";
+        // 申請を承認
+        $application->approval_status = '承認済み';
         $application->save();
 
+        // 勤怠へ反映
         $attendanceRecord->date = $application->new_date;
-        $attendanceRecord->clock_in = $application->new_clock_in;;
+        $attendanceRecord->clock_in = $application->new_clock_in;
         $attendanceRecord->clock_out = $application->new_clock_out;
         $attendanceRecord->comment = $application->comment;
 
+        // 既存休憩を入れ替え
         $attendanceRecord->breaks()->delete();
 
-        foreach ($application->new_breaks as $break) {
+        foreach ($application->proposalBreaks as $break) {
             $attendanceRecord->breaks()->create([
-                'break_in' => $break['break_in'],
-                'break_out' => $break['break_out'],
+                'break_in' => $break->break_in,
+                'break_out' => $break->break_out,
             ]);
         }
 
+        // 合計計算
         $clockIn = Carbon::parse($attendanceRecord->clock_in);
         $clockOut = Carbon::parse($attendanceRecord->clock_out);
 
         $totalBreakMinutes = 0;
-        foreach ($attendanceRecord->breaks as $break) {
-            if ($break->break_in && $break->break_out) {
-                $breakIn = Carbon::parse($break->break_in);
-                $breakOut = Carbon::parse($break->break_out);
-                $totalBreakMinutes += $breakIn->diffInMinutes($breakOut);
+        foreach ($attendanceRecord->breaks as $b) {
+            if ($b->break_in && $b->break_out) {
+                $totalBreakMinutes += Carbon::parse($b->break_in)->diffInMinutes(Carbon::parse($b->break_out));
             }
         }
 
-        $totalWorkHours = floor($totalBreakTime / 60);
-        $totalWorkMinutes = $totalBreakTime % 60;
-        $attendanceRecord->total_break_time = sprintf('%02d:%02d', $totalBreakHours, $totalBreakMinutes);
+        $attendanceRecord->total_break_time = sprintf('%02d:%02d', intdiv($totalBreakMinutes, 60), $totalBreakMinutes % 60);
 
-        $totalWorkMinutes = $clockIn->diffInMinutes($clockOut) - $totalBreakTime;
-        $hours = floor($totalWorkMinutes / 60);
-        $minutes = $totalWorkMinutes % 60;
-        $attendanceRecord->total_time = sprintf('%02d:%02d', $hours, $minutes);
+        $workedMinutes = $clockIn->diffInMinutes($clockOut) - $totalBreakMinutes;
+        $attendanceRecord->total_time = sprintf('%02d:%02d', intdiv($workedMinutes, 60), $workedMinutes % 60);
 
         $attendanceRecord->save();
 
-        return app(AdminController::class)->applicationList($id);
+        return redirect('/stamp_correction_request/list');
     }
+
 
     public function export(Request $request)
     {

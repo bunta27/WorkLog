@@ -15,7 +15,8 @@
             <input class="current-date__item" type="text" value="{{ $formattedDate }}" readonly>
         </div>
         <div class="current-time">
-            <input class="current-time__item" type="text" value="{{ $formattedTime }}" readonly>
+            <input id="currentTime" class="current-time__item" type="text" value="{{ $formattedTime }}" readonly>
+            <input type="hidden" value="{{ $hiddenDate }}">
         </div>
         <div class="attendance__button">
             @if($user->attendance_status === '勤務外')

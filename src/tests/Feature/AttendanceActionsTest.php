@@ -14,7 +14,9 @@ class AttendanceActionsTest extends TestCase
 
     public function test_clock_in_once_only(): void
     {
-        $user = User::factory()->create(['email_verified_at' => now()]);
+        $user = User::factory()->create([
+        'email_verified_at' => now(),
+        ]);;
 
         // 1回目
         $this->actingAs($user)->post(TestRoutes::ATTENDANCE_INDEX, ['action' => 'clock_in'])
@@ -55,11 +57,12 @@ class AttendanceActionsTest extends TestCase
         $this->actingAs($user)->post(TestRoutes::ATTENDANCE_INDEX, ['action' => 'clock_out']);
 
         $user->refresh();
-        $this->assertSame('勤務外', $user->attendance_status);
+        $this->assertSame('退勤済', $user->attendance_status);
 
         $record = AttendanceRecord::where('user_id', $user->id)->latest()->first();
         $this->assertNotNull($record);
         $this->assertNotNull($record->total_time);
         $this->assertNotNull($record->total_break_time);
+        $this->assertNotNull($record->clock_out);
     }
 }

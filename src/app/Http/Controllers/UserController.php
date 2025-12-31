@@ -19,13 +19,13 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->attendance_status === '退勤済') {
+        if ($user->attendance_status === '勤務外') {
             $attendance = AttendanceRecord::where('user_id', $user->id)
                 ->whereDate('date', now()->format('Y-m-d'))
                 ->first();
 
             if (! $attendance) {
-                $user = $attendance_status = '勤務外';
+                $user->attendance_status = '勤務外';
                 $user->save();
             }
         }
@@ -35,9 +35,10 @@ class UserController extends Controller
         $weekday = $week[$now->format('w')];
         $formattedDate = $now->format('Y年m月d日') . " ({$weekday})";
         $formattedTime = $now->format('H:i');
+        $hiddenDate = $now->format('Y/m/d');
 
         return view(
-            'user/attendance-register', compact('user', 'formattedDate', 'formattedTime')
+            'user/attendance-register', compact('user', 'formattedDate', 'formattedTime', 'hiddenDate')
         );
     }
 

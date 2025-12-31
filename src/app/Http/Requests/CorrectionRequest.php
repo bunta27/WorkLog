@@ -61,4 +61,29 @@ class CorrectionRequest extends FormRequest
             'comment.required' => '備考を記入してください',
         ];
     }
+
+    public function withValidator($validator)
+{
+    $validator->after(function ($validator) {
+        $ins  = (array) $this->input('new_break_in', []);
+        $outs = (array) $this->input('new_break_out', []);
+
+        foreach ($ins as $i => $in) {
+            $out = $outs[$i] ?? null;
+
+            if ($in && $out) {
+                try {
+                    $inTime = \Carbon\Carbon::createFromFormat('H:i', $in);
+                    $outTime = \Carbon\Carbon::createFromFormat('H:i', $out);
+
+                    if ($outTime->lte($inTime)) {
+                        $validator->errors()->add("new_break_out.$i", '休憩終了は休憩開始より後の時刻を入力してください。');
+                    }
+                } catch (\Exception $e) {
+                }
+            }
+        }
+    });
+}
+
 }

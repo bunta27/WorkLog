@@ -21,10 +21,11 @@ class AttendanceDatetimeAndStatusTest extends TestCase
         $res->assertOk();
 
         // 例：YYYY/MM/DD のような表示がある想定なら
-        $res->assertSeeTextMatches('/\d{4}\/\d{2}\/\d{2}/');
+        $res->assertSeeTextMatches('/\d{4}年\d{1,2}月\d{1,2}日/');
 
         // 時刻 HH:MM がある想定
         $res->assertSeeTextMatches('/\d{2}:\d{2}/');
+        
     }
 
     public function test_status_text_is_shown(): void
