@@ -48,17 +48,18 @@ MAIL_FROM_ADDRESSに送信元アドレスを設定
 
 ## usersテーブル（ユーザー）
 
-| カラム名 | 型 | 制約 | 説明 |
-|---------|----|------|------|
-| id | bigint | PK | ユーザーID |
-| name | string | NOT NULL | ユーザー名 |
-| email | string | UNIQUE, NOT NULL | メールアドレス |
-| password | string | NOT NULL | パスワード |
-| attendance_status | string |  | 勤怠状態（勤務外 / 出勤中 / 休憩中 / 退勤済） |
-| is_admin | boolean |  | 管理者フラグ |
-| email_verified_at | timestamp |  | メール認証日時 |
-| created_at | timestamp |  | 作成日時 |
-| updated_at | timestamp |  | 更新日時 |
+| カラム名 | 型 | primary key | unique key | not null |
+|---------|----|-------------|------------|----------|
+| id | bigint | 〇 |  | 〇 |
+| name | string |  |  | 〇 |
+| email | string |  | 〇 | 〇 |
+| password | string |  |  | 〇 |
+| attendance_status | string |  |  | 〇 |
+| admin_status | boolean |  |  | 〇 |
+| email_verified_at | timestamp |  |  |  |
+| remember_token | string |  |  |  |
+| created_at | timestamp |  |  |  |
+| updated_at | timestamp |  |  |  |
 
 ---
 
@@ -80,26 +81,33 @@ MAIL_FROM_ADDRESSに送信元アドレスを設定
 ---
 
 ## breaksテーブル（休憩）
-| カラム名 | 型 | 制約 | 説明 |
-|---------|----|------|------|
-| id | bigint | PK | 休憩ID |
-| attendance_record_id | bigint | FK, NOT NULL | 勤怠レコードID |
-| break_in | time |  | 休憩開始時刻 |
-| break_out | time |  | 休憩終了時刻 |
-| created_at | timestamp |  | 作成日時 |
-| updated_at | timestamp |  | 更新日時 |
+
+| カラム名 | 型 | primary key | unique key | not null |
+|---------|----|-------------|------------|----------|
+| id | bigint | 〇 |  | 〇 |
+| attendance_record_id | bigint |  |  | 〇 |
+| break_in | time |  |  |  |
+| break_out | time |  |  |  |
+| created_at | timestamp |  |  |  |
+| updated_at | timestamp |  |  |  |
 
 ---
 
 ## applicationsテーブル（勤怠修正申請）
-| カラム名 | 型 | 制約 | 説明 |
-|---------|----|------|------|
-| id | bigint | PK | 休憩ID |
-| attendance_record_id | bigint | FK, NOT NULL | 勤怠レコードID |
-| break_in | time |  | 休憩開始時刻 |
-| break_out | time |  | 休憩終了時刻 |
-| created_at | timestamp |  | 作成日時 |
-| updated_at | timestamp |  | 更新日時 |
+
+| カラム名 | 型 | primary key | unique key | not null |
+|---------|----|-------------|------------|----------|
+| id | bigint | 〇 |  | 〇 |
+| user_id | bigint |  |  | 〇 |
+| attendance_record_id | bigint |  |  | 〇 |
+| approval_status | string |  |  | 〇 |
+| application_date | date |  |  | 〇 |
+| new_date | date |  |  | 〇 |
+| new_clock_in | time |  |  | 〇 |
+| new_clock_out | time |  |  |  |
+| comment | text |  |  | 〇 |
+| created_at | timestamp |  |  |  |
+| updated_at | timestamp |  |  |  |
 
 ---
 
