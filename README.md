@@ -32,17 +32,34 @@ docker-compose.yml を各自の環境に合わせて調整してください。
 1. docker-compose exec php bash
 2. composer install
 3. cp .env.example .env
-4. php artisan key:generate
-5. php artisan migrate
-6. php artisan db:seed
+4. .envファイルの変更
+
+```bash
+DB_HOSTをmysqlに変更
+DB_DATABASEをlaravel_dbに変更
+DB_USERNAMEをlaravel_userに変更
+DB_PASSをlaravel_passに変更
+MAIL_FROM_ADDRESSに送信元アドレスを設定
+```
+5. php artisan key:generate
+6. php artisan migrate
+7. php artisan db:seed
 
 ### テスト実行
 
 ```bash
-docker-compose exec php php artisan test
+php artisan test
 ```
 
-### 使用技術（実行環境）
+## ログイン情報
+### 一般ユーザー
+ id：user1@example.com／user2@example.com／user3@example.com
+ pass：password
+### 管理者
+ id：admin@example.com
+ pass：password
+ 
+## 使用技術（実行環境）
 
 - PHP 8.0
 - Laravel 10.x
