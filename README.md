@@ -46,6 +46,8 @@ MAIL_FROM_ADDRESSに送信元アドレスを設定
 7. php artisan db:seed
 8. php artisan test
 
+---
+
 ## usersテーブル（ユーザー）
 
 | カラム名 | 型 | primary key | unique key | not null | foreign key |
@@ -134,10 +136,10 @@ PASS：password
 
 ## 使用技術（実行環境）
 
-- PHP 8.0
-- Laravel 10.x
-- MySQL 8.0
-- Docker / Docker Compose
+- PHP 8.1.34
+- Laravel 8.83.29
+- MySQL 8.0.26
+- Docker 29.1.3/ Docker Compose v2.40.3
 
 ### URL
 
