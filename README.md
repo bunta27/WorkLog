@@ -48,84 +48,79 @@ MAIL_FROM_ADDRESSに送信元アドレスを設定
 
 ## usersテーブル（ユーザー）
 
-| カラム名 | 型 | primary key | unique key | not null |
-|---------|----|-------------|------------|----------|
-| id | bigint | 〇 |  | 〇 |
-| name | string |  |  | 〇 |
-| email | string |  | 〇 | 〇 |
-| password | string |  |  | 〇 |
-| attendance_status | string |  |  | 〇 |
-| admin_status | boolean |  |  | 〇 |
-| email_verified_at | timestamp |  |  |  |
-| remember_token | string |  |  |  |
-| created_at | timestamp |  |  |  |
-| updated_at | timestamp |  |  |  |
+| カラム名 | 型 | primary key | unique key | not null | foreign key |
+|---------|----|-------------|------------|----------|-------------|
+| id | bigint | 〇 |  | 〇 |  |
+| name | string |  |  | 〇 |  |
+| email | string |  | 〇 | 〇 |  |
+| password | string |  |  | 〇 |  |
+| attendance_status | string |  |  | 〇 |  |
+| admin_status | boolean |  |  | 〇 |  |
+| email_verified_at | timestamp |  |  |  |  |
+| remember_token | string |  |  |  |  |
+| created_at | timestamp |  |  |  |  |
+| updated_at | timestamp |  |  |  |  |
 
 ---
 
 ## attendance_recordsテーブル（勤怠）
 
-| カラム名 | 型 | 制約 | 説明 |
-|---------|----|------|------|
-| id | bigint | PK | 勤怠レコードID |
-| user_id | bigint | FK, NOT NULL | ユーザーID |
-| date | date | NOT NULL | 勤務日 |
-| clock_in | datetime |  | 出勤時刻 |
-| clock_out | datetime |  | 退勤時刻 |
-| total_time | string |  | 実働時間 |
-| total_break_time | string |  | 合計休憩時間 |
-| comment | text |  | コメント |
-| created_at | timestamp |  | 作成日時 |
-| updated_at | timestamp |  | 更新日時 |
+| カラム名 | 型 | primary key | unique key | not null | foreign key |
+|---------|----|-------------|------------|----------|-------------|
+| id | bigint | 〇 |  | 〇 |  |
+| user_id | bigint |  |  | 〇 | users(id) |
+| date | date |  |  | 〇 |  |
+| clock_in | datetime |  |  |  |  |
+| clock_out | datetime |  |  |  |  |
+| total_time | string |  |  |  |  |
+| total_break_time | string |  |  |  |  |
+| comment | text |  |  |  |  |
+| created_at | timestamp |  |  |  |  |
+| updated_at | timestamp |  |  |  |  |
 
 ---
 
 ## breaksテーブル（休憩）
 
-| カラム名 | 型 | primary key | unique key | not null |
-|---------|----|-------------|------------|----------|
-| id | bigint | 〇 |  | 〇 |
-| attendance_record_id | bigint |  |  | 〇 |
-| break_in | time |  |  |  |
-| break_out | time |  |  |  |
-| created_at | timestamp |  |  |  |
-| updated_at | timestamp |  |  |  |
+| カラム名 | 型 | primary key | unique key | not null | foreign key |
+|---------|----|-------------|------------|----------|-------------|
+| id | bigint | 〇 |  | 〇 |  |
+| attendance_record_id | bigint |  |  | 〇 | attendance_records(id) |
+| break_in | time |  |  |  |  |
+| break_out | time |  |  |  |  |
+| created_at | timestamp |  |  |  |  |
+| updated_at | timestamp |  |  |  |  |
 
 ---
 
 ## applicationsテーブル（勤怠修正申請）
 
-| カラム名 | 型 | primary key | unique key | not null |
-|---------|----|-------------|------------|----------|
-| id | bigint | 〇 |  | 〇 |
-| user_id | bigint |  |  | 〇 |
-| attendance_record_id | bigint |  |  | 〇 |
-| approval_status | string |  |  | 〇 |
-| application_date | date |  |  | 〇 |
-| new_date | date |  |  | 〇 |
-| new_clock_in | time |  |  | 〇 |
-| new_clock_out | time |  |  |  |
-| comment | text |  |  | 〇 |
-| created_at | timestamp |  |  |  |
-| updated_at | timestamp |  |  |  |
+| カラム名 | 型 | primary key | unique key | not null | foreign key |
+|---------|----|-------------|------------|----------|-------------|
+| id | bigint | 〇 |  | 〇 |  |
+| user_id | bigint |  |  | 〇 | users(id) |
+| attendance_record_id | bigint |  |  | 〇 | attendance_records(id) |
+| approval_status | string |  |  | 〇 |  |
+| application_date | date |  |  | 〇 |  |
+| new_date | date |  |  | 〇 |  |
+| new_clock_in | time |  |  | 〇 |  |
+| new_clock_out | time |  |  |  |  |
+| comment | text |  |  | 〇 |  |
+| created_at | timestamp |  |  |  |  |
+| updated_at | timestamp |  |  |  |  |
 
 ---
 
 ## application_breaksテーブル（修正申請・休憩）
 
-| カラム名 | 型 | 制約 | 説明 |
-|---------|----|------|------|
-| id | bigint | PK | 申請ID |
-| user_id | bigint | FK, NOT NULL | 申請者ユーザーID |
-| attendance_record_id | bigint | FK, NOT NULL | 対象勤怠ID |
-| approval_status | string | NOT NULL | 承認状態（承認待ち / 承認 / 却下） |
-| application_date | date | NOT NULL | 申請日 |
-| new_date | date |  | 修正後日付 |
-| new_clock_in | time |  | 修正後出勤時刻 |
-| new_clock_out | time |  | 修正後退勤時刻 |
-| comment | text | NOT NULL | 申請理由 |
-| created_at | timestamp |  | 作成日時 |
-| updated_at | timestamp |  | 更新日時 |
+| カラム名 | 型 | primary key | unique key | not null | foreign key |
+|---------|----|-------------|------------|----------|-------------|
+| id | bigint | 〇 |  | 〇 |  |
+| application_id | bigint |  |  | 〇 | applications(id) |
+| break_in | time |  |  | 〇 |  |
+| break_out | time |  |  |  |  |
+| created_at | timestamp |  |  |  |  |
+| updated_at | timestamp |  |  |  |  |
 
 ---
 
