@@ -53,11 +53,11 @@ php artisan test
 
 ## ログイン情報
 ### 一般ユーザー
-id：user1@example.com／user2@example.com／user3@example.com 
-pass：password
+ID：user1@example.com／user2@example.com／user3@example.com 
+PASS：password
 ### 管理者
-id：admin@example.com 
-pass：password
+ID：admin@example.com 
+PASS：password
 
 ## 使用技術（実行環境）
 
