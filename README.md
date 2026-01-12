@@ -57,6 +57,7 @@ id：user1@example.com／user2@example.com／user3@example.com
 pass：password
 ### 管理者
 id：admin@example.com 
+
 pass：password
 
 ## 使用技術（実行環境）
