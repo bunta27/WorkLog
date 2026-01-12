@@ -123,10 +123,10 @@ MAIL_FROM_ADDRESSに送信元アドレスを設定
 
 ## ログイン情報
 ### 一般ユーザー
-ID：user1@example.com／user2@example.com／user3@example.com 
+ID：user1@example.com／user2@example.com／user3@example.com　
 PASS：password
 ### 管理者
-ID：admin@example.com 
+ID：admin@example.com　
 PASS：password
 
 ## 使用技術（実行環境）
