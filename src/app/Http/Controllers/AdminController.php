@@ -282,8 +282,8 @@ class AdminController extends Controller
         foreach ($staffAttendance as $staff) {
             $temp = [
                 Carbon::parse($staff->date)->format('Y/m/d'),
-                Carbon::parse($staff->clock_in)->format('H:i'),
-                Carbon::parse($staff->clock_out)->format('H:i'),
+                $staff->clock_in ? Carbon::parse($staff->clock_in)->format('H:i') : '',
+                $staff->clock_out ? Carbon::parse($staff->clock_out)->format('H:i') : '',
                 $staff->total_break_time,
                 $staff->total_time,
             ];

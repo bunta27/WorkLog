@@ -75,7 +75,11 @@
             @csrf
             <input type="hidden" name="user_id" value="{{ $user->id }}">
             <input type="hidden" name="date" value="{{ $date->format('Y-m') }}">
-            <button class="form__button csv__button--submit" type="submit">CSV出力</button>
+            <form action="{{ url('/admin/attendance/export') }}" method="GET">
+                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                <input type="hidden" name="year_month" value="{{ $date->format('Y-m') }}">
+                <button class="form__button csv__button--submit" type="submit">CSV出力</button>
+            </form>
         </form>
     </div>
 </div>
