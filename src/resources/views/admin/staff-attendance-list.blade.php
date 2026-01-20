@@ -73,7 +73,7 @@
     <div class="csv__button">
         <form action="{{ route('admin.attendance.export') }}" method="get">
             <input type="hidden" name="user_id" value="{{ $user->id }}">
-            <input type="hidden" name="year_month" value="{{ $date }}">
+            <input type="hidden" name="year_month" value="{{ $yearMonth }}">
             <button class="form__button csv__button--submit" type="submit">
                 CSV出力
             </button>

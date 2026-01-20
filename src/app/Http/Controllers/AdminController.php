@@ -79,9 +79,12 @@ class AdminController extends Controller
             ];
         });
 
+        $yearMonth = $date->format('Y-m');
+
         return view('admin/staff-attendance-list', [
             'user' => $user,
             'date' => $date,
+            'yearMonth' => $yearMonth,
             'formattedAttendanceRecords' => $formattedAttendanceRecords,
             'previousMonth' => $date->copy()->subMonth()->format('Y-m'),
             'nextMonth' => $date->copy()->addMonth()->format('Y-m'),
@@ -263,40 +266,53 @@ class AdminController extends Controller
     {
         $userId = $request->input('user_id');
         $yearMonth = $request->input('year_month');
-        $startDate = Carbon::createFromFormat('Y-m', $yearMonth)->startOfMonth();
-        $endDate = Carbon::createFromFormat('Y-m', $yearMonth)->endOfMonth();
 
-        $staffAttendance = AttendanceRecord::where('user_id', $userId)->whereBetween('date', [$startDate, $endDate])->get();
+        if (!$userId || !$yearMonth) {
+            return redirect()->back()->withErrors('CSV出力に必要なパラメータが不足しています。');
+        }
 
-        $user = User::find($userId);
+        try {
+            $startDate = Carbon::createFromFormat('Y-m', $yearMonth)->startOfMonth();
+            $endDate = Carbon::createFromFormat('Y-m', $yearMonth)->endOfMonth();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('year_month の形式が不正です（YYYY-MM）。');
+        }
+
+        $staffAttendance = AttendanceRecord::where('user_id', $userId)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->get();
+
+        $user = User::findOrFail($userId);
         $userName = $user->name;
 
         $csvHeader = ['日付', '出勤時間', '退勤時間', '休憩時間', '勤務時間'];
-        $temps = [];
-        array_push($temps, $csvHeader);
+        $temps = [$csvHeader];
 
         foreach ($staffAttendance as $staff) {
-            $temp = [
+            $temps[] = [
                 Carbon::parse($staff->date)->format('Y/m/d'),
                 $staff->clock_in ? Carbon::parse($staff->clock_in)->format('H:i') : '',
                 $staff->clock_out ? Carbon::parse($staff->clock_out)->format('H:i') : '',
-                $staff->total_break_time,
-                $staff->total_time,
+                $staff->total_break_time ?? '',
+                $staff->total_time ?? '',
             ];
-            array_push($temps, $temp);
         }
+
         $stream = fopen('php://temp', 'r+b');
-        foreach ($temps as $temp) {
-            fputcsv($stream, $temp);
+        foreach ($temps as $row) {
+            fputcsv($stream, $row);
         }
         rewind($stream);
+
         $csv = str_replace(PHP_EOL, "\r\n", stream_get_contents($stream));
         $csv = mb_convert_encoding($csv, 'SJIS-win', 'UTF-8');
-        $filename = "{$userName}さんの勤怠リスト.csv";
-        $headers = array(
+
+        $filename = "{$userName}さんの勤怠リスト_{$yearMonth}.csv";
+
+        return response($csv, 200, [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename=' . $filename,
-        );
-        return response($csv, 200, $headers);
-    }
+        ]);
+}
+
 }
