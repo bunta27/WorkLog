@@ -18,9 +18,6 @@ class AuthController extends Controller
         $this->creator = $creator;
     }
 
-    // =========================
-    // 管理者ログイン関連
-    // =========================
     public function adminLogin()
     {
         return view('admin/admin-login');
@@ -52,9 +49,6 @@ class AuthController extends Controller
         return redirect('/admin/login');
     }
 
-    // =========================
-    // 一般ユーザー登録
-    // =========================
     public function store(RegisterRequest $request)
     {
         $user = $this->creator->create($request->all());
@@ -67,9 +61,6 @@ class AuthController extends Controller
             ->route('verification.notice');
     }
 
-    // =========================
-    // 一般ユーザーログイン
-    // =========================
     public function doLogin(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');

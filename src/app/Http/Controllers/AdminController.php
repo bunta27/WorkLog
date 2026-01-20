@@ -221,17 +221,14 @@ class AdminController extends Controller
         $application = Application::with('proposalBreaks')->findOrFail($attendance_correct_request_id);
         $attendanceRecord = AttendanceRecord::findOrFail($application->attendance_record_id);
 
-        // 申請を承認
         $application->approval_status = '承認済み';
         $application->save();
 
-        // 勤怠へ反映
         $attendanceRecord->date = $application->new_date;
         $attendanceRecord->clock_in = $application->new_clock_in;
         $attendanceRecord->clock_out = $application->new_clock_out;
         $attendanceRecord->comment = $application->comment;
 
-        // 既存休憩を入れ替え
         $attendanceRecord->breaks()->delete();
 
         foreach ($application->proposalBreaks as $break) {
@@ -241,7 +238,6 @@ class AdminController extends Controller
             ]);
         }
 
-        // 合計計算
         $clockIn = Carbon::parse($attendanceRecord->clock_in);
         $clockOut = Carbon::parse($attendanceRecord->clock_out);
 
