@@ -64,7 +64,6 @@ Route::middleware(['auth', AdminStatusMiddleware::class])->group(function () {
 
     Route::get('/admin/attendance/export', [AdminController::class, 'export'])->name('admin.attendance.export');
 
-
     Route::post('/admin/logout', [AuthController::class, 'adminLogout']);
 });
 
