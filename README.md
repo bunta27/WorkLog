@@ -39,7 +39,7 @@ cd WorkLog
 cp .env.example .env
 ```
 
-- .envの設定（例）
+- .envを編集（例）
 
 ※ DB設定は必須です。MailHog を使わない場合は `MAIL_*` は環境に合わせて変更/削除してください。
 
