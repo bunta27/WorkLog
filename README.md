@@ -26,12 +26,13 @@ cd WorkLog
 ```
 
 ### Laravel セットアップ
+
+#### ホスト側(コンテナ外)
 ```bash
-# ホスト側(コンテナ外)
 cp .env.example .env
 ```
 
-#### .envの設定
+##### .envの設定
 ```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -45,8 +46,8 @@ DB_PASSWORD=laravel_pass
 docker compose up -d --build
 ```
 
+#### コンテナ側（Dockerの中)
 ```bash
-# コンテナ側（Dockerの中)
 docker compose exec php bash -lc "composer install"
 docker compose exec php bash -lc "php artisan key:generate"
 docker compose exec php bash -lc "php artisan migrate --seed"
