@@ -264,6 +264,11 @@ class AdminController extends Controller
 
     public function export(Request $request)
     {
+        $request->validate([
+            'user_id' => ['required','integer','exists:users,id'],
+            'year_month' => ['required','date_format:Y-m'],
+        ]);
+
         $userId = $request->input('user_id');
         $yearMonth = $request->input('year_month');
 
@@ -289,8 +294,11 @@ class AdminController extends Controller
         $temps = [$csvHeader];
 
         foreach ($staffAttendance as $staff) {
+            $date = Carbon::parse($staff->date);
+            $weekdays = ['日','月','火','水','木','金','土'];
+
             $temps[] = [
-                Carbon::parse($staff->date)->format('Y/m/d'),
+                $date->format('m/d') . '(' . $weekdays[$date->dayOfWeek] . ')',
                 $staff->clock_in ? Carbon::parse($staff->clock_in)->format('H:i') : '',
                 $staff->clock_out ? Carbon::parse($staff->clock_out)->format('H:i') : '',
                 $staff->total_break_time ?? '',

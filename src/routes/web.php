@@ -62,7 +62,7 @@ Route::middleware(['auth', AdminStatusMiddleware::class])->group(function () {
     Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminController::class, 'approvalShow']);
     Route::post('/stamp_correction_request/approve/{attendance_correct_request_id}', [AdminController::class, 'approval']);
 
-    Route::get('/admin/attendance/export', [AdminController::class, 'export'])->name('admin.attendance.export');
+    Route::post('/admin/attendance/export', [AdminController::class, 'export'])->name('admin.attendance.export');
 
     Route::post('/admin/logout', [AuthController::class, 'adminLogout']);
 });
