@@ -65,6 +65,21 @@ docker compose exec php bash -lc "php artisan test"
 
 ---
 
+## 動作確認
+
+### URL
+- 開発環境: http://localhost/
+- phpMyAdmin: http://localhost:8080/
+- Mailhog: http://localhost:8025/ （開発用メール受信確認）
+
+### ログイン情報
+| 種別 | Email | Password |
+|---|---|---|
+| 一般ユーザー | user1@example.com / user2@example.com / user3@example.com | password |
+| 管理者 | admin@example.com | password |
+
+---
+
 ## トラブルシューティング
 
 ### `storage/logs/laravel.log` や `storage/framework/sessions` で Permission denied が出る場合
@@ -84,21 +99,6 @@ chmod -R ug+rwX storage bootstrap/cache
 docker compose logs mysql
 ```
 - ローカルで 3306 を使っているサービスがないか
-
----
-
-## 動作確認
-
-### URL
-- 開発環境: http://localhost/
-- phpMyAdmin: http://localhost:8080/
-- Mailhog: http://localhost:8025/ （開発用メール受信確認）
-
-### ログイン情報
-| 種別 | Email | Password |
-|---|---|---|
-| 一般ユーザー | user1@example.com / user2@example.com / user3@example.com | password |
-| 管理者 | admin@example.com | password |
 
 ---
 
