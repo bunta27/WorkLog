@@ -62,14 +62,11 @@ docker compose exec php bash -lc "php artisan test"
 - phpMyAdmin: http://localhost:8080/
 - Mailhog: http://localhost:8025/
 
-
 ### ログイン情報
-#### 一般ユーザー
-ID：user1@example.com／user2@example.com／user3@example.com  
-PASS：password
-#### 管理者
-ID：admin@example.com  
-PASS：password
+| 種別 | Email | Password |
+|---|---|---|
+| 一般ユーザー | user1@example.com / user2@example.com / user3@example.com | password |
+| 管理者 | admin@example.com | password |
 
 ---
 
