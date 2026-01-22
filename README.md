@@ -80,8 +80,6 @@ docker compose exec php bash -lc "php artisan test"
 ### URL
 - 開発環境: http://localhost/
 - 管理者ログイン: http://localhost/admin/login
-
-
 - phpMyAdmin: http://localhost:8080/
 - Mailhog: http://localhost:8025/ （開発用メール受信確認）
 
