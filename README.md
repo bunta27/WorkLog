@@ -55,6 +55,24 @@ docker compose exec php bash -lc "php artisan test"
 
 ---
 
+## 動作確認
+
+### URL
+
+- 開発環境: http://localhost/
+- phpMyAdmin: http://localhost:8080/
+- Mailhog: http://localhost:8025/
+
+### ログイン情報
+#### 一般ユーザー
+ID：user1@example.com／user2@example.com／user3@example.com  
+PASS：password
+#### 管理者
+ID：admin@example.com  
+PASS：password
+
+---
+
 ## usersテーブル（ユーザー）
 
 | カラム名 | 型 | primary key | unique key | not null | foreign key |
@@ -133,26 +151,12 @@ docker compose exec php bash -lc "php artisan test"
 
 ---
 
-## ログイン情報
-### 一般ユーザー
-ID：user1@example.com／user2@example.com／user3@example.com  
-PASS：password
-### 管理者
-ID：admin@example.com  
-PASS：password
-
 ## 使用技術（実行環境）
 
 - PHP 8.1.34
 - Laravel 8.83.29
 - MySQL 8.0.26
 - Docker 29.1.3/ Docker Compose v2.40.3
-
-### URL
-
-- 開発環境: http://localhost/
-- phpMyAdmin: http://localhost:8080/
-- Mailhog: http://localhost:8025/
 
 
 ### ER図
