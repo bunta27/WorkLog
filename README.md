@@ -41,7 +41,7 @@ cp .env.example .env
 
 - .envの設定（例）
 
-※ DB設定は必須です。Mailhog を使わない場合は `MAIL_*` は環境に合わせて変更/削除してください。
+※ DB設定は必須です。MailHog を使わない場合は `MAIL_*` は環境に合わせて変更/削除してください。
 
 ```env
 DB_CONNECTION=mysql
@@ -75,13 +75,13 @@ docker compose exec php bash -lc "php artisan test"
 ## 動作確認
 
 セットアップ完了後、http://localhost/ にアクセスしてログイン画面が表示されればOKです。  
-メール認証の動作確認は Mailhog http://localhost:8025/ で受信できればOKです。
+メール認証の動作確認は MailHog http://localhost:8025/ で受信できればOKです。
 
 ### URL
 - 開発環境: http://localhost/
 - 管理者ログイン: http://localhost/admin/login
 - phpMyAdmin: http://localhost:8080/
-- Mailhog: http://localhost:8025/ （開発用メール受信確認）
+- MailHog: http://localhost:8025/ （開発用メール受信確認）
 
 ### ログイン情報
 | 種別 | Email | Password |
@@ -119,7 +119,7 @@ docker compose logs mysql
 - Laravel 8.83.29
 - MySQL 8.0.26
 - Docker 29.1.3/ Docker Compose v2.40.3
-- 開発環境のメール送信確認に Mailhog を使用
+- 開発環境のメール送信確認に MailHog を使用
 
 ## ER図
 
