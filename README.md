@@ -29,14 +29,15 @@ docker-compose up -d --build
 docker-compose.yml を各自の環境に合わせて調整してください。
 
 ### Laravel セットアップ
-1. docker compose up -d --build
-   or
-   docker-compose up -d --build
-2. composer install
-3. cp .env.example .env  # ホスト側で実行（推奨）
+```bash
+docker compose up -d --build
+    # or
+docker-compose up -d --build
+
+composer install
+cp .env.example .env  # ホスト側で実行（推奨）
 4. .envファイルの変更
 
-```bash
 DB_HOSTをmysqlに変更
 DB_DATABASEをlaravel_dbに変更
 DB_USERNAMEをlaravel_userに変更
