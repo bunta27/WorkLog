@@ -112,6 +112,20 @@ docker compose logs mysql
 
 ---
 
+## 使用技術（実行環境）
+
+- PHP 8.1.34
+- Laravel 8.83.29
+- MySQL 8.0.26
+- Docker 29.1.3/ Docker Compose v2.40.3
+- 開発環境のメール送信確認に Mailhog を使用
+
+## ER図
+
+![ER図](docs/worklog.png)
+
+---
+
 ## テーブル定義
 
 ### usersテーブル（ユーザー）
@@ -191,18 +205,6 @@ docker compose logs mysql
 | updated_at | timestamp |  |  |  |  |
 
 ---
-
-## 使用技術（実行環境）
-
-- PHP 8.1.34
-- Laravel 8.83.29
-- MySQL 8.0.26
-- Docker 29.1.3/ Docker Compose v2.40.3
-- 開発環境のメール送信確認に Mailhog を使用
-
-## ER図
-
-![ER図](docs/worklog.png)
 
 ## 備考
 ### 勤怠ステータス
