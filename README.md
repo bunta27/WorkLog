@@ -30,7 +30,7 @@ docker-compose.yml を各自の環境に合わせて調整してください。
 
 ### Laravel セットアップ
 1. docker compose up -d --build
-   # or
+   or
    docker-compose up -d --build
 2. composer install
 3. cp .env.example .env  # ホスト側で実行（推奨）
