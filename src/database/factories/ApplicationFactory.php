@@ -14,8 +14,26 @@ class ApplicationFactory extends Factory
 
     public function definition(): array
     {
-        $user = User::inRandomOrder()->first() ?? User::factory()->create(['email_verified_at' => now()]);
-        $record = AttendanceRecord::factory()->create(['user_id' => $user->id, 'date' => now()->toDateString()]);
+        $user = User::inRandomOrder()->first()
+            ?? User::factory()->create(['email_verified_at' => now()]);
+
+        $record = AttendanceRecord::where('user_id', $user->id)->inRandomOrder()->first();
+
+        if (! $record) {
+            $record = AttendanceRecord::factory()->create(['user_id' => $user->id]);
+        }
+
+
+        $newDate = Carbon::parse($record->date)->toDateString();
+
+        $minuteOptions = [0, 15, 30, 45];
+
+        $newClockIn = Carbon::createFromTime(
+            rand(8, 10),
+            $minuteOptions[array_rand($minuteOptions)]
+        );
+
+        $newClockOut = (clone $newClockIn)->addHours(rand(6, 10))->min(Carbon::createFromTime(22, 0));
 
         return [
             'user_id' => $user->id,
@@ -24,17 +42,9 @@ class ApplicationFactory extends Factory
             'approval_status' => $this->faker->randomElement(['承認待ち', '承認済み']),
             'application_date' => now(),
 
-            'new_date' => now()->toDateString(),
-
-            'new_clock_in' => Carbon::createFromTime(
-                rand(8, 10),
-                [0, 15, 30, 45][array_rand([0, 15, 30, 45])]
-            )->format('H:i'),
-
-            'new_clock_out' => Carbon::createFromTime(
-                rand(17, 20),
-                [0, 15, 30, 45][array_rand([0, 15, 30, 45])]
-            )->format('H:i'),
+            'new_date' => $newDate,
+            'new_clock_in' => $newClockIn->format('H:i'),
+            'new_clock_out' => $newClockOut->format('H:i'),
 
             'comment' => $this->faker->randomElement([
                 '体調不良のため',

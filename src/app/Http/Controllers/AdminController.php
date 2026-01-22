@@ -62,7 +62,7 @@ class AdminController extends Controller
         $startOfMonth = $date->copy()->startOfMonth();
         $endOfMonth = $date->copy()->endOfMonth();
 
-        $attendanceRecords = AttendanceRecord::where('user_id', $user->id)->whereBetween('date', [$startOfMonth, $endOfMonth])->orderBy('date', 'asc')->orderBy('id', 'asc')->get();
+        $attendanceRecords = AttendanceRecord::where('user_id', $user->id)->whereBetween('date', [$startOfMonth, $endOfMonth])->orderBy('date', 'asc')->orderBy('id', 'asc')->orderBy('clock_in', 'asc')->get();
 
         $formattedAttendanceRecords = $attendanceRecords->map(function ($attendance) {
             $weekdays = ['日', '月', '火', '水', '木', '金', '土',];
@@ -285,6 +285,8 @@ class AdminController extends Controller
 
         $staffAttendance = AttendanceRecord::where('user_id', $userId)
             ->whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date', 'asc')
+            ->orderBy('clock_in', 'asc')
             ->get();
 
         $user = User::findOrFail($userId);
