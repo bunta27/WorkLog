@@ -22,7 +22,7 @@ Laravel を用いて作成した勤怠管理アプリケーションです。
 
 ```bash
 git clone git@github.com:bunta27/WorkLog.git
-docker-compose up -d --build
+cd WorkLog
 ```
 
 ※ MySQL は OS や環境によって起動しない場合があるため、必要に応じて
@@ -31,25 +31,26 @@ docker-compose.yml を各自の環境に合わせて調整してください。
 ### Laravel セットアップ
 ```bash
 # host
-cp .env.example .env
+cp .env.example .env   # できればホスト側(コンテナ外)で
 docker compose up -d --build
-
-# container
-docker compose exec php bash -lc "composer install"
-docker compose exec php bash -lc "php artisan key:generate"
-docker compose exec php bash -lc "php artisan migrate --seed"
-docker compose exec php bash -lc "php artisan test"
-
 ```
 
+#### .envの設定
 ```md
-```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+```
+
+```bash
+# container
+docker compose exec php bash -lc "composer install"
+docker compose exec php bash -lc "php artisan key:generate"
+docker compose exec php bash -lc "php artisan migrate --seed"
+docker compose exec php bash -lc "php artisan test"
 ```
 
 ---
