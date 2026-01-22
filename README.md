@@ -40,6 +40,15 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=example@worklog.com
+MAIL_FROM_NAME="WorkLog"
 ```
 
 ```bash
@@ -83,7 +92,7 @@ docker compose logs mysql
 ### URL
 - 開発環境: http://localhost/
 - phpMyAdmin: http://localhost:8080/
-- Mailhog: http://localhost:8025/
+- Mailhog: http://localhost:8025/ （開発用メール受信確認）
 
 ### ログイン情報
 | 種別 | Email | Password |
@@ -177,7 +186,7 @@ docker compose logs mysql
 - Laravel 8.83.29
 - MySQL 8.0.26
 - Docker 29.1.3/ Docker Compose v2.40.3
-
+- 開発環境のメール送信確認に Mailhog を使用
 
 ### ER図
 
