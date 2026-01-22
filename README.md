@@ -53,6 +53,17 @@ docker compose exec php bash -lc "php artisan migrate --seed"
 docker compose exec php bash -lc "php artisan test"
 ```
 
+## トラブルシューティング
+`storage/logs/laravel.log` や `storage/framework/sessions` で Permission denied が出る場合：
+
+```bash
+docker compose exec php bash -lc "
+mkdir -p storage/logs storage/framework/{cache,sessions,views} bootstrap/cache &&
+chown -R www-data:www-data storage bootstrap/cache &&
+chmod -R ug+rwX storage bootstrap/cache
+"
+```
+
 ---
 
 ## 動作確認
