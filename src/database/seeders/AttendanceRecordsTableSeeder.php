@@ -2,19 +2,34 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\AttendanceRecord;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class AttendanceRecordsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        AttendanceRecord::factory()->count(20)->create();
+        $users = User::all();
+
+        if ($users->isEmpty()) {
+            return;
+        }
+
+        $start = Carbon::today()->subDays(20);
+        $allDates = collect(range(0, 40))
+            ->map(fn ($i) => $start->copy()->addDays($i)->toDateString());
+
+        foreach ($users as $user) {
+            $dates = $allDates->shuffle()->take(15);
+
+            foreach ($dates as $d) {
+                AttendanceRecord::factory()
+                    ->for($user)
+                    ->state(['date' => $d])
+                    ->create();
+            }
+        }
     }
 }

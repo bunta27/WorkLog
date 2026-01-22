@@ -15,7 +15,7 @@ class ApplicationFactory extends Factory
     public function definition(): array
     {
         $user = User::inRandomOrder()->first() ?? User::factory()->create(['email_verified_at' => now()]);
-        $record = AttendanceRecord::factory()->create(['user_id' => $user->id]);
+        $record = AttendanceRecord::factory()->create(['user_id' => $user->id, 'date' => now()->toDateString()]);
 
         return [
             'user_id' => $user->id,

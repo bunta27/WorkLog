@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AttendanceBreak;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AttendanceRecord extends Model
 {
@@ -28,17 +31,17 @@ class AttendanceRecord extends Model
         'total_break_time' => 'string',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function applications()
+    public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
     }
 
-    public function breaks()
+    public function breaks(): HasMany
     {
         return $this->hasMany(AttendanceBreak::class);
     }

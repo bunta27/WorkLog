@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\AttendanceRecord;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -11,13 +10,11 @@ class AttendanceRecordFactory extends Factory
 {
     protected $model = AttendanceRecord::class;
 
-    public function definition()
+    public function definition(): array
     {
-        $userId = User::inRandomOrder()->value('id') ?? User::factory()->create()->id;
+        $dateValue = $this->faker->optional()->passthrough(null);
 
-        $workDate = Carbon::parse(
-            $this->faker->dateTimeBetween('-10 days', '+3 days')
-        )->startOfDay();
+        $workDate = Carbon::today()->startOfDay();
 
         $clockIn = $this->randomTimeOnDate($workDate, 7, 11);
 
@@ -38,8 +35,6 @@ class AttendanceRecordFactory extends Factory
         $workedMinutes = max(0, $clockIn->diffInMinutes($clockOut) - $totalBreakMinutes);
 
         return [
-            'user_id' => $userId,
-            'date' => $workDate->format('Y-m-d'),
             'clock_in' => $clockIn->format('H:i:s'),
             'clock_out' => $clockOut->format('H:i:s'),
             'total_break_time' => sprintf('%02d:%02d', 0, 0),
@@ -83,15 +78,15 @@ class AttendanceRecordFactory extends Factory
         $startMin = intdiv($startTs, 60);
         $endMin = intdiv($endTs, 60);
 
-        $startMin = (int) (ceil($startMin / 15) * 15);
-        $endMin = (int) (floor($endMin / 15) * 15);
+        $startMin = (int)(ceil($startMin / 15) * 15);
+        $endMin = (int)(floor($endMin / 15) * 15);
 
         if ($endMin < $startMin) {
             return $start->copy();
         }
 
         $pickedMin = $this->faker->numberBetween($startMin, $endMin);
-        $pickedMin = (int) (floor($pickedMin / 15) * 15);
+        $pickedMin = (int)(floor($pickedMin / 15) * 15);
 
         return Carbon::createFromTimestamp($pickedMin * 60);
     }
