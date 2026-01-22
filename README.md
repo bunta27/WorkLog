@@ -74,8 +74,8 @@ docker compose exec php bash -lc "php artisan test"
 
 ## 動作確認
 
-※ セットアップ完了後、http://localhost/ にアクセスしてログイン画面が表示されればOKです。  
-※ メール認証の動作確認は Mailhog http://localhost:8025/ で受信できればOKです。
+**Note:** セットアップ完了後、http://localhost/ にアクセスしてログイン画面が表示されればOKです。  
+メール認証の動作確認は Mailhog http://localhost:8025/ で受信できればOKです。
 
 ### URL
 - 開発環境: http://localhost/
