@@ -19,7 +19,7 @@ use Laravel\Fortify\Http\Controllers\VerifyEmailController;
 */
 
 Route::get('/', function () {
-    return redirect('/register');
+    return redirect('/login');
 });
 
 
