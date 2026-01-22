@@ -103,6 +103,7 @@ docker compose logs mysql
 ---
 
 ## テーブル定義
+
 ### usersテーブル（ユーザー）
 
 | カラム名 | 型 | primary key | unique key | not null | foreign key |
@@ -117,6 +118,8 @@ docker compose logs mysql
 | remember_token | string |  |  |  |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
+
+<br>
 
 ### attendance_recordsテーブル（勤怠）
 
@@ -133,6 +136,8 @@ docker compose logs mysql
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
 
+<br>
+
 ### breaksテーブル（休憩）
 
 | カラム名 | 型 | primary key | unique key | not null | foreign key |
@@ -143,6 +148,8 @@ docker compose logs mysql
 | break_out | time |  |  |  |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
+
+<br>
 
 ### applicationsテーブル（勤怠修正申請）
 
@@ -159,6 +166,8 @@ docker compose logs mysql
 | comment | text |  |  | 〇 |  |
 | created_at | timestamp |  |  |  |  |
 | updated_at | timestamp |  |  |  |  |
+
+<br>
 
 ### application_breaksテーブル（修正申請・休憩）
 
