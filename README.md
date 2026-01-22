@@ -30,8 +30,8 @@ docker-compose.yml を各自の環境に合わせて調整してください。
 
 ### Laravel セットアップ
 ```bash
-# host
-cp .env.example .env   # できればホスト側(コンテナ外)で
+# ホスト側(コンテナ外)
+cp .env.example .env
 docker compose up -d --build
 ```
 
@@ -46,7 +46,7 @@ DB_PASSWORD=laravel_pass
 ```
 
 ```bash
-# container
+# コンテナ側（Dockerの中)
 docker compose exec php bash -lc "composer install"
 docker compose exec php bash -lc "php artisan key:generate"
 docker compose exec php bash -lc "php artisan migrate --seed"
