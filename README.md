@@ -25,9 +25,6 @@ git clone git@github.com:bunta27/WorkLog.git
 cd WorkLog
 ```
 
-※ MySQL は OS や環境によって起動しない場合があるため、必要に応じて
-docker-compose.yml を各自の環境に合わせて調整してください。
-
 ### Laravel セットアップ
 ```bash
 # ホスト側(コンテナ外)
@@ -54,7 +51,8 @@ docker compose exec php bash -lc "php artisan test"
 ```
 
 ## トラブルシューティング
-`storage/logs/laravel.log` や `storage/framework/sessions` で Permission denied が出る場合：
+
+### `storage/logs/laravel.log` や `storage/framework/sessions` で Permission denied が出る場合：
 
 ```bash
 docker compose exec php bash -lc "
@@ -62,6 +60,13 @@ mkdir -p storage/logs storage/framework/{cache,sessions,views} bootstrap/cache &
 chown -R www-data:www-data storage bootstrap/cache &&
 chmod -R ug+rwX storage bootstrap/cache
 "
+```
+
+### MySQL が起動しない
+まずログを確認してください：
+
+```bash
+docker compose logs mysql
 ```
 
 ---
