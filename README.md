@@ -16,6 +16,13 @@ Laravel を用いて作成した勤怠管理アプリケーションです。
 
 ---
 
+## 必要要件（最低限）
+
+- Docker / Docker Compose
+- Git（任意：clone に使用）
+
+---
+
 ## 環境構築
 
 ### Docker ビルド
@@ -66,6 +73,9 @@ docker compose exec php bash -lc "php artisan test"
 ---
 
 ## 動作確認
+
+※ セットアップ完了後、http://localhost/ にアクセスしてログイン画面が表示されればOKです。  
+※ メール認証の動作確認は Mailhog（http://localhost:8025/）で受信できればOKです。
 
 ### URL
 - 開発環境: http://localhost/
@@ -190,7 +200,7 @@ docker compose logs mysql
 - Docker 29.1.3/ Docker Compose v2.40.3
 - 開発環境のメール送信確認に Mailhog を使用
 
-### ER図
+## ER図
 
 ![ER図](docs/worklog.png)
 
