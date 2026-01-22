@@ -40,6 +40,8 @@ docker compose exec php bash -lc "php artisan key:generate"
 docker compose exec php bash -lc "php artisan migrate --seed"
 docker compose exec php bash -lc "php artisan test"
 
+```
+
 ```md
 ```env
 DB_CONNECTION=mysql
@@ -48,8 +50,6 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
-```
-```
 ```
 
 ---
