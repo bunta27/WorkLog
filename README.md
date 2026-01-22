@@ -32,7 +32,10 @@ cd WorkLog
 cp .env.example .env
 ```
 
-- .envの設定
+- .envの設定（例）
+
+※ DB設定は必須です。Mailhog を使わない場合は `MAIL_*` は環境に合わせて変更/削除してください。
+
 ```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -41,12 +44,10 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 
+
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=example@worklog.com
 MAIL_FROM_NAME="WorkLog"
 ```
