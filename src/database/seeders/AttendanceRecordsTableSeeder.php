@@ -17,8 +17,8 @@ class AttendanceRecordsTableSeeder extends Seeder
             return;
         }
 
-        $start = Carbon::today()->subDays(20);
-        $allDates = collect(range(0, 40))
+        $start = Carbon::today()->subDays(40);
+        $allDates = collect(range(0, 60))
             ->map(fn ($i) => $start->copy()->addDays($i)->toDateString());
 
         foreach ($users as $user) {
