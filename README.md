@@ -32,7 +32,7 @@ cd WorkLog
 cp .env.example .env
 ```
 
-#####   .envの設定
+#####  - .envの設定
 ```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
