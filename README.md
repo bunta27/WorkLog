@@ -52,7 +52,7 @@ docker compose exec php bash -lc "php artisan test"
 
 ## トラブルシューティング
 
-### `storage/logs/laravel.log` や `storage/framework/sessions` で Permission denied が出る場合：
+### `storage/logs/laravel.log` や `storage/framework/sessions` で Permission denied が出る場合
 
 ```bash
 docker compose exec php bash -lc "
@@ -62,12 +62,13 @@ chmod -R ug+rwX storage bootstrap/cache
 "
 ```
 
-### MySQL が起動しない
+### MySQL が起動しない場合（例: ポート3306競合 / volume不整合）
 まずログを確認してください：
 
 ```bash
 docker compose logs mysql
 ```
+- ローカルで 3306 を使っているサービスがないか
 
 ---
 
