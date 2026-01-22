@@ -36,7 +36,7 @@ docker compose up -d --build
 ```
 
 #### .envの設定
-```md
+```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
