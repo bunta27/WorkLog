@@ -58,10 +58,10 @@ docker compose exec php bash -lc "php artisan test"
 ## 動作確認
 
 ### URL
-
 - 開発環境: http://localhost/
 - phpMyAdmin: http://localhost:8080/
 - Mailhog: http://localhost:8025/
+
 
 ### ログイン情報
 #### 一般ユーザー
