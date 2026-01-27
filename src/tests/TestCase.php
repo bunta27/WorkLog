@@ -14,13 +14,11 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         \Illuminate\Testing\TestResponse::macro('assertSeeTextMatches', function (string $pattern) {
-        /** @var \Illuminate\Testing\TestResponse $this */
+
         $html = $this->getContent();
 
-        // 画面に見えるテキスト（タグ除去）
         $text = strip_tags($html);
 
-        // input の value="" もテキストとして拾う（勤怠画面がまさにこれ）
         preg_match_all('/\bvalue="([^"]*)"/u', $html, $m);
         if (!empty($m[1])) {
             $text .= "\n" . implode("\n", $m[1]);
