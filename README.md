@@ -123,7 +123,7 @@ docker compose logs mysql
 
 ## ER図
 
-![ER図](docs/worklog.png)
+![ER図](docs/er.mmd)
 
 ---
 
