@@ -24,8 +24,6 @@ class AdminAttendanceAccessTest extends TestCase
         $res = $this->actingAs($admin)->get('/admin/attendance/list');
         $res->assertOk();
 
-        // 表示にユーザー名が含まれるなら
-        // $res->assertSee($userA->name)->assertSee($userB->name);
         $this->assertTrue(true);
     }
 

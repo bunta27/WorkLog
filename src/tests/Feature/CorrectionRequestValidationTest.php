@@ -34,7 +34,6 @@ class CorrectionRequestValidationTest extends TestCase
         $user = User::factory()->create(['email_verified_at' => now()]);
         $record = AttendanceRecord::factory()->create(['user_id' => $user->id]);
 
-        // 休憩開始 > 休憩終了
         $res = $this->actingAs($user)->post(TestRoutes::attendanceUpdateUrl($record->id), [
             'new_date' => '12月13日',
             'new_clock_in' => '09:00',
@@ -44,7 +43,7 @@ class CorrectionRequestValidationTest extends TestCase
             'comment' => '電車遅延のため',
         ]);
 
-        $res->assertSessionHasErrors(); // keyを厳密にするなら new_break_in.0 / new_break_out.0
+        $res->assertSessionHasErrors();
     }
 
     public function test_comment_required(): void

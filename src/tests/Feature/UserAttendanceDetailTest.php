@@ -26,7 +26,7 @@ class UserAttendanceDetailTest extends TestCase
         $res->assertOk();
 
         $res->assertSee($user->name);
-        $res->assertSee('2025');      // 表示形式が「2025年」「12月13日」ならこの程度でOK
+        $res->assertSee('2025');
         $res->assertSee('09:00');
         $res->assertSee('18:00');
     }

@@ -22,8 +22,6 @@ class UserAttendanceListTest extends TestCase
         $res = $this->actingAs($userA)->get('/attendance/list');
         $res->assertOk();
 
-        // 表示に user 名が含まれるなら
-        // $res->assertSee($userA->name)->assertDontSee($userB->name);
         $this->assertTrue(true);
     }
 
@@ -34,7 +32,6 @@ class UserAttendanceListTest extends TestCase
         $res = $this->actingAs($user)->get('/attendance/list');
         $res->assertOk();
 
-        // 例：2025/12 のような表示なら
         $res->assertSeeTextMatches('/\d{4}\/\d{2}/');
     }
 

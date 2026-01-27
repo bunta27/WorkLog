@@ -72,8 +72,6 @@ class AuthValidationTest extends TestCase
             'password' => 'wrongpass',
         ]);
 
-        // 課題の文言に合わせたいなら
-        // ->assertSessionHasErrors(['email']) など実装に合わせて調整
         $res->assertSessionHasErrors();
     }
 

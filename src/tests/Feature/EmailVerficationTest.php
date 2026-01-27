@@ -37,6 +37,6 @@ class EmailVerificationTest extends TestCase
         ]);
 
         $this->actingAs($user)->get(TestRoutes::ATTENDANCE_INDEX)
-            ->assertRedirect(); // 通常 /email/verify
+            ->assertRedirect();
     }
 }
