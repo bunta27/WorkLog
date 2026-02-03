@@ -138,7 +138,8 @@ class UserController extends Controller
     public function list(Request $request)
     {
         $user = Auth::user();
-        $date = Carbon::parse($request->query('date', now()));
+        $ym = $request->query('date', now()->format('Y-m'));
+        $date = Carbon::createFromFormat('Y-m', $ym)->startOfMonth();
 
         $startOfMonth = $date->copy()->startOfMonth();
         $endOfMonth   = $date->copy()->endOfMonth();
@@ -155,13 +156,13 @@ class UserController extends Controller
         $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
 
         $rows = [];
-        for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {
-            $key = $date->toDateString();
+        for ($cursor = $startOfMonth->copy(); $cursor->lte($endOfMonth); $cursor->addDay()) {
+            $key = $cursor->toDateString();
             $record = $recordsByDate->get($key);
 
             $rows[] = [
                 'id' => $record?->id,
-                'date' => $date->format('m/d') . "({$weekdays[$date->dayOfWeek]})",
+                'date' => $cursor->format('m/d') . "({$weekdays[$cursor->dayOfWeek]})",
                 'clock_in'  => $record?->clock_in ? Carbon::parse($record->clock_in)->format('H:i') : '',
                 'clock_out' => $record?->clock_out ? Carbon::parse($record->clock_out)->format('H:i') : '',
                 'total_time' => $record?->total_time ? $this->trimLeadingHourZero($record->total_time) : '',
@@ -176,8 +177,6 @@ class UserController extends Controller
             'previousMonth' => $date->copy()->subMonth()->format('Y-m'),
         ]);
     }
-
-
 
     public function detail($id)
     {

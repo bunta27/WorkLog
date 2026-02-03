@@ -10,10 +10,10 @@
         <h2 class="content__title">勤怠一覧</h2>
     </div>
     <div class="content__menu">
-        <a class="previous-month" href="?date={{ $previousMonth }}">前月</a>
+        <a class="previous-month" href="{{ url('/attendance/list') }}?date={{ $previousMonth }}">前月</a>
         <p class="current-month">{{ $date->format('Y/m') }}</p>
         @if ($date->lt(\Carbon\Carbon::now()))
-            <a class="next-month" href="?date={{ $nextMonth }}">翌月</a>
+            <a class="next-month" href="{{ url('/attendance/list') }}?date={{ $nextMonth }}">翌月</a>
         @else
             <div class="next-month-placeholder"></div>
         @endif
