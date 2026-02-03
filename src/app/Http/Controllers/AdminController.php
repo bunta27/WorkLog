@@ -60,36 +60,43 @@ class AdminController extends Controller
         $date = Carbon::parse($request->query('date', Carbon::now()));
 
         $startOfMonth = $date->copy()->startOfMonth();
-        $endOfMonth = $date->copy()->endOfMonth();
+        $endOfMonth   = $date->copy()->endOfMonth();
 
-        $attendanceRecords = AttendanceRecord::where('user_id', $user->id)->whereBetween('date', [$startOfMonth, $endOfMonth])->orderBy('date', 'asc')->orderBy('id', 'asc')->orderBy('clock_in', 'asc')->get();
+        $records = AttendanceRecord::where('user_id', $user->id)
+            ->whereBetween('date', [$startOfMonth->toDateString(), $endOfMonth->toDateString()])
+            ->orderBy('date')
+            ->get();
 
-        $formattedAttendanceRecords = $attendanceRecords->map(function ($attendance) {
-            $weekdays = ['日', '月', '火', '水', '木', '金', '土',];
-            $date = Carbon::parse($attendance->date);
-            $weekday = $weekdays[$date->dayOfWeek];
-
-            return [
-                'id' => $attendance->id,
-                'date' => $date->format('m/d') . "({$weekdays[$date->dayOfWeek]})",
-                'clock_in' => $attendance->clock_in ? Carbon::parse($attendance->clock_in)->format('H:i') : null,
-                'clock_out' => $attendance->clock_out ? Carbon::parse($attendance->clock_out)->format('H:i') : null,
-                'total_time' => $this->trimLeadingHourZero($attendance->total_time),
-                'total_break_time' => $this->trimLeadingHourZero($attendance->total_break_time),
-            ];
+        $recordsByDate = $records->keyBy(function ($r) {
+            return Carbon::parse($r->date)->toDateString();
         });
 
-        $yearMonth = $date->format('Y-m');
+        $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+        $rows = [];
+
+        for ($d = $startOfMonth->copy(); $d->lte($endOfMonth); $d->addDay()) {
+            $key = $d->toDateString();
+            $record = $recordsByDate->get($key);
+
+            $rows[] = [
+                'id' => $record?->id,
+                'date' => $d->format('m/d') . "({$weekdays[$d->dayOfWeek]})",
+                'clock_in' => $record?->clock_in ? Carbon::parse($record->clock_in)->format('H:i') : '',
+                'clock_out' => $record?->clock_out ? Carbon::parse($record->clock_out)->format('H:i') : '',
+                'total_time' => $record?->total_time ? $this->trimLeadingHourZero($record->total_time) : '',
+                'total_break_time' => $record?->total_break_time ? $this->trimLeadingHourZero($record->total_break_time) : '',
+            ];
+        }
 
         return view('admin/staff-attendance-list', [
             'user' => $user,
             'date' => $date,
-            'yearMonth' => $yearMonth,
-            'formattedAttendanceRecords' => $formattedAttendanceRecords,
+            'formattedAttendanceRecords' => collect($rows),
             'previousMonth' => $date->copy()->subMonth()->format('Y-m'),
             'nextMonth' => $date->copy()->addMonth()->format('Y-m'),
         ]);
     }
+
 
     public function detail($id)
     {
@@ -130,17 +137,27 @@ class AdminController extends Controller
         $attendance = AttendanceRecord::findOrFail($id);
         $user = User::findOrFail($attendance->user_id);
 
-        $dateString = $request->new_date;
-        if (isarray($dateString)) {
-            $dateString = $dateString[1];
+        $dateString = $request->input('new_date');
+
+        if (is_array($dateString)) {
+            $dateString = $dateString[1] ?? $dateString[0] ?? end($dateString);
         }
-        $parsedDate = Carbon::createFromFormat('n月j日', $dateString)->Year(now()->year)->format('Y-m-d');
+
+        $dateString = is_string($dateString) ? trim($dateString) : '';
+
+        if ($dateString === '') {
+            return back()->withErrors(['new_date' => '日付が正しく入力されていません。']);
+        }
+
+        $parsedDate = Carbon::createFromFormat('n月j日', $dateString)
+            ->year(now()->year)
+            ->format('Y-m-d');
+
         $attendance->date = $parsedDate;
 
-        $attendance->clock_in = Carbon::parse($request->new_clock_in)->format('H:i');
+        $attendance->clock_in  = Carbon::parse($request->new_clock_in)->format('H:i');
         $attendance->clock_out = Carbon::parse($request->new_clock_out)->format('H:i');
-
-        $attendance->comment = $request->comment;
+        $attendance->comment   = $request->comment;
         $attendance->save();
 
         $attendance->breaks()->delete();
@@ -159,7 +176,7 @@ class AdminController extends Controller
                     'break_out' => $breakOut,
                 ]);
 
-                $totalBreakMinutes += Carbon::parse($breakOut)->diffInMinutes(Carbon::parse($breakIn));
+                $totalBreakMinutes += Carbon::parse($breakIn)->diffInMinutes(Carbon::parse($breakOut));
             }
         }
 
@@ -173,6 +190,7 @@ class AdminController extends Controller
 
         return app(AdminController::class)->detail($id);
     }
+
 
     public function applicationList()
 {

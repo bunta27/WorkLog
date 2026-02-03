@@ -137,35 +137,47 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $users = Auth::user();
+        $user = Auth::user();
         $date = Carbon::parse($request->query('date', now()));
 
         $startOfMonth = $date->copy()->startOfMonth();
-        $endOfMonth = $date->copy()->endOfMonth();
+        $endOfMonth   = $date->copy()->endOfMonth();
 
-        $attendanceRecords = AttendanceRecord::where('user_id', $users->id)
-            ->whereBetween('date', [$startOfMonth, $endOfMonth])
+        $records = AttendanceRecord::where('user_id', $user->id)
+            ->whereBetween('date', [$startOfMonth->toDateString(), $endOfMonth->toDateString()])
+            ->orderBy('date')
             ->get();
 
-        $formatted = $attendanceRecords->map(function ($record) {
-            $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
-            $date = Carbon::parse($record->date);
-            return [
-                'id' => $record->id,
-                'date' => $date->format('m/d') . "({$weekdays[$date->dayOfWeek]})",
-                'clock_in' => $record->clock_in ? Carbon::parse($record->clock_in)->format('H:i') : null,
-                'clock_out' => $record->clock_out ? Carbon::parse($record->clock_out)->format('H:i') : null,
-                'total_time' => $this->trimLeadingHourZero($record->total_time),
-                'total_break_time' => $this->trimLeadingHourZero($record->total_break_time),
-            ];
+        $recordsByDate = $records->keyBy(function ($r) {
+            return Carbon::parse($r->date)->toDateString();
         });
-        return view('user/user-attendance-list',[
-            'formattedAttendanceRecords' => $formatted,
+
+        $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+
+        $rows = [];
+        for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {
+            $key = $date->toDateString();
+            $record = $recordsByDate->get($key);
+
+            $rows[] = [
+                'id' => $record?->id,
+                'date' => $date->format('m/d') . "({$weekdays[$date->dayOfWeek]})",
+                'clock_in'  => $record?->clock_in ? Carbon::parse($record->clock_in)->format('H:i') : '',
+                'clock_out' => $record?->clock_out ? Carbon::parse($record->clock_out)->format('H:i') : '',
+                'total_time' => $record?->total_time ? $this->trimLeadingHourZero($record->total_time) : '',
+                'total_break_time' => $record?->total_break_time ? $this->trimLeadingHourZero($record->total_break_time) : '',
+            ];
+        }
+
+        return view('user/user-attendance-list', [
+            'formattedAttendanceRecords' => collect($rows),
             'date' => $date,
             'nextMonth' => $date->copy()->addMonth()->format('Y-m'),
             'previousMonth' => $date->copy()->subMonth()->format('Y-m'),
         ]);
     }
+
+
 
     public function detail($id)
     {

@@ -65,7 +65,11 @@
                 <p class="table__description--item">{{ $attendanceRecord['total_time'] }}</p>
             </td>
             <td class="table__description">
-                <a class="table__item--detail--link" href="{{ url('/attendance/detail/' . $attendanceRecord['id']) }}">詳細</a>
+                @if (!empty($attendanceRecord['id']))
+                    <a href="{{ url('/attendance/detail/' . $attendanceRecord['id']) }}">詳細</a>
+                @else
+                    <p>詳細</p>
+                @endif
             </td>
         </tr>
         @endforeach
